@@ -1,0 +1,151 @@
+---
+layout: default
+---
+<style>
+    /* Main Layout Grid */
+    .single-post-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 20px;
+        align-items: flex-start;
+    }
+    
+    /* Left Side: Content Area */
+    .post-main {
+        flex: 1 1 65%;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    /* Right Side: Sidebar */
+    .post-sidebar {
+        flex: 1 1 30%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Breadcrumbs & Title */
+    .breadcrumb {
+        font-size: 14px;
+        color: #3498db;
+        margin-bottom: 20px;
+    }
+    .breadcrumb a { color: #3498db; text-decoration: none; font-weight: 600; }
+    .breadcrumb span { color: #7f8c8d; }
+    .post-title { font-size: 32px; color: #000; margin-bottom: 20px; font-weight: bold; }
+    .post-featured-image { width: 100%; border-radius: 8px; margin-bottom: 20px; object-fit: cover; border: 1px solid #eee; }
+    
+    .post-body { font-size: 16px; line-height: 1.8; color: #444; }
+
+    /* Sidebar Pricing Cards */
+    .pricing-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #f0f0f0;
+    }
+    .pricing-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+    }
+    .price { color: #0056b3; font-size: 24px; }
+    
+    .pricing-features {
+        list-style: none;
+        margin-bottom: 25px;
+        font-size: 14px;
+        color: #555;
+        line-height: 2.5;
+        padding: 0;
+    }
+    .pricing-features li i.fa-check { color: #2ecc71; margin-right: 10px; font-size: 16px; }
+    .pricing-features li i.fa-times { color: #e74c3c; margin-right: 12px; margin-left: 2px; font-size: 16px; }
+    
+    .btn-buy {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s;
+        font-size: 16px;
+    }
+    .btn-free { background: #f4f5f7; color: #333; border: 1px solid #ddd; }
+    .btn-free:hover { background: #e2e6ea; }
+    .btn-premium { background: #2ecc71; color: #fff; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
+    .btn-premium:hover { background: #27ae60; box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .post-main, .post-sidebar { flex: 1 1 100%; }
+    }
+</style>
+
+<div class="single-post-wrapper">
+    <!-- Left Side: Content -->
+    <div class="post-main">
+        <div class="breadcrumb">
+            <a href="{{ '/' | relative_url }}">Home</a> &gt; <a href="#">Premium</a> &gt; <span>{{ page.title }}</span>
+        </div>
+        
+        <h1 class="post-title">{{ page.title }}</h1>
+        
+        {% if page.image %}
+        <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image">
+        {% endif %}
+        
+        <div class="post-body">
+            <!-- Yahan aapki post ka main text aayega -->
+            {{ content }}
+        </div>
+    </div>
+
+    <!-- Right Side: Sidebar Cards -->
+    <div class="post-sidebar">
+        
+        <!-- Free Version Card -->
+        <div class="pricing-card">
+            <div class="pricing-header">
+                <span>Free Version:</span>
+                <span class="price">$0.00</span>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fa-solid fa-check"></i> Basic Template Features</li>
+                <li><i class="fa-solid fa-times"></i> Remove Footer Credits</li>
+                <li><i class="fa-solid fa-times"></i> No Encrypted Scripts</li>
+                <li><i class="fa-solid fa-times"></i> Customization Support</li>
+                <li><i class="fa-solid fa-times"></i> Lifetime Template Updates</li>
+            </ul>
+            <a href="{{ page.download_link }}" class="btn-buy btn-free" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> Free Download</a>
+        </div>
+
+        <!-- Premium License Card -->
+        <div class="pricing-card">
+            <div class="pricing-header">
+                <span>Premium License:</span>
+                <span class="price">$12.95</span>
+            </div>
+            <ul class="pricing-features">
+                <li><i class="fa-solid fa-check"></i> No Encrypted Scripts</li>
+                <li><i class="fa-solid fa-check"></i> Remove Footer Credits</li>
+                <li><i class="fa-solid fa-check"></i> One Time Payment</li>
+                <li><i class="fa-solid fa-check"></i> Lifetime Template Updates</li>
+                <li><i class="fa-solid fa-check"></i> 3 Months of Premium Support</li>
+            </ul>
+            <a href="{{ page.preview_link }}" class="btn-buy btn-premium" target="_blank">💳 Buy Now</a>
+        </div>
+
+    </div>
+</div>
