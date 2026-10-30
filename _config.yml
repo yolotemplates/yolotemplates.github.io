@@ -1,3 +1,4 @@
 name: YoloTemplates
 description: Premium Blogger Themes
 markdown: kramdown
+permalink: /:title.html
