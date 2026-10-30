@@ -1,238 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YoloTemplates - Premium Blogger Themes</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Base & Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-        }
+---
+layout: default
+title: Home
+---
 
-        /* Navbar */
-        nav {
-            background: #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #2c3e50;
-            text-decoration: none;
-        }
-        .logo span {
-            color: #3498db;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 600;
-            margin-left: 20px;
-            transition: color 0.3s;
-        }
-        .nav-links a:hover {
-            color: #3498db;
-        }
+<h2 class="section-title">Featured Blogger Themes</h2>
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 28px;
-            color: #2c3e50;
-        }
-
-        /* Grid Layout */
-        .theme-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        /* Post Card Style */
-        .card {
-            background: #ffffff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: #e9ecef;
-            border-bottom: 1px solid #eee;
-        }
-        .card-body {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .theme-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        /* Buttons Container */
-        .btn-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn {
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .btn-preview {
-            background: #f1f3f5;
-            color: #495057;
-            flex: 1;
-            justify-content: center;
-        }
-        .btn-preview:hover {
-            background: #e2e6ea;
-            color: #212529;
-        }
-        .btn-download {
-            background: #3498db;
-            color: #ffffff;
-            flex: 1;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-        }
-        .btn-download:hover {
-            background: #2980b9;
-            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-        }
-
-        /* View More Button */
-        .view-more-container {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .btn-view-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #2c3e50;
-            color: #ffffff;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
-        .btn-view-more:hover {
-            background: #1a252f;
-            transform: scale(1.05);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="index.html" class="logo">Yolo<span>Templates</span></a>
-        <div class="nav-links">
-            <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-        <h2 class="section-title">Featured Blogger Themes</h2>
-        
-        <!-- Grid View -->
-        <div class="theme-grid">
-            
-            <!-- Post 1 -->
-            <div class="card">
-                <!-- Replace src with your actual image URL -->
-                <img src="https://via.placeholder.com/600x400/ececec/999999?text=Theme+Preview+1" alt="Theme 1" class="card-img">
-                <div class="card-body">
-                    <h3 class="theme-title">JobPortal Pro</h3>
-                    <div class="btn-group">
-                        <a href="theme1-preview-link" class="btn btn-preview"><i class="fa-solid fa-eye"></i> Preview</a>
-                        <a href="theme1-download-link" class="btn btn-download"><i class="fa-solid fa-download"></i> Download</a>
-                    </div>
-                </div>
+<div class="theme-grid">
+    <!-- Jekyll loop starts here: Maximum 6 post dikhayega homepage par -->
+    {% for post in site.posts limit:6 %}
+    <div class="card">
+        <img src="{{ post.image }}" alt="{{ post.title }}" class="card-img">
+        <div class="card-body">
+            <a href="{{ post.url | relative_url }}"><h3 class="theme-title">{{ post.title }}</h3></a>
+            <div class="btn-group">
+                <a href="{{ post.preview_link }}" class="btn btn-preview" target="_blank"><i class="fa-solid fa-eye"></i> Preview</a>
+                <a href="{{ post.download_link }}" class="btn btn-download" target="_blank"><i class="fa-solid fa-download"></i> Download</a>
             </div>
-
-            <!-- Post 2 -->
-            <div class="card">
-                <img src="https://via.placeholder.com/600x400/ececec/999999?text=Theme+Preview+2" alt="Theme 2" class="card-img">
-                <div class="card-body">
-                    <h3 class="theme-title">NewsMag Ultra</h3>
-                    <div class="btn-group">
-                        <a href="theme2-preview-link" class="btn btn-preview"><i class="fa-solid fa-eye"></i> Preview</a>
-                        <a href="theme2-download-link" class="btn btn-download"><i class="fa-solid fa-download"></i> Download</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Post 3 -->
-            <div class="card">
-                <img src="https://via.placeholder.com/600x400/ececec/999999?text=Theme+Preview+3" alt="Theme 3" class="card-img">
-                <div class="card-body">
-                    <h3 class="theme-title">Minimalist Blog</h3>
-                    <div class="btn-group">
-                        <a href="theme3-preview-link" class="btn btn-preview"><i class="fa-solid fa-eye"></i> Preview</a>
-                        <a href="theme3-download-link" class="btn btn-download"><i class="fa-solid fa-download"></i> Download</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- View More Button -->
-        <div class="view-more-container">
-            <a href="themes.html" class="btn-view-more">View All Themes <i class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
+    {% endfor %}
+</div>
 
-</body>
-</html>
+<div class="view-more-container">
+    <a href="{{ '/themes.html' | relative_url }}" class="btn-view-more">View All Themes <i class="fa-solid fa-arrow-right"></i></a>
+</div>
