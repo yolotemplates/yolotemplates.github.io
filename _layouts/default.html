@@ -22,7 +22,9 @@
         .card:hover { transform: translateY(-5px); }
         .card-img { width: 100%; height: 200px; object-fit: cover; }
         .card-body { padding: 20px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
-        .theme-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #2c3e50; text-decoration: none;}
+        .card-body a { text-decoration: none; }
+        .theme-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #2c3e50; transition: color 0.3s; }
+        .theme-title:hover { color: #3498db; }
         .btn-group { display: flex; gap: 10px; }
         .btn { text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: 1; }
         .btn-preview { background: #f1f3f5; color: #495057; }
