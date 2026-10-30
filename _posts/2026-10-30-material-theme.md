@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "JobPortal Pro Theme"
 image: "https://via.placeholder.com/600x400/ececec/999999?text=JobPortal"
 preview_link: "https://yolotemplates.github.io/jobportal-preview"
