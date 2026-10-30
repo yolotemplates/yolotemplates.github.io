@@ -1,19 +1,11 @@
 ---
-layout: default
+layout: post
 title: "JobPortal Pro Theme"
-image: "https://via.placeholder.com/600x400/ececec/999999?text=JobPortal"
-preview_link: "https://yolotemplates.github.io/jobportal-preview"
-download_link: "https://yourpaymentgateway.com/jobportal"
+image: "https://via.placeholder.com/800x400/ececec/999999?text=JobPortal+Preview"
+preview_link: "https://buy-link-here.com"
+download_link: "https://free-download-link.com"
 ---
 
-<div class="post-content">
-  <h2>About JobPortal Pro</h2>
-  <p>Yeh theme government job alerts aur recruitment websites ke liye perfect hai. Isme fast loading aur SEO features inbuilt hain.</p>
-  
-  <h3>Features:</h3>
-  <ul>
-    <li>Mobile Responsive</li>
-    <li>AdSense Optimized</li>
-    <li>Dark Mode Ready</li>
-  </ul>
-</div>
+JobPortal Pro Theme ki body. Yahan par aap apne theme ke baare mein jo bhi likhenge wo image ke theek niche left side mein aayega, bilkul Pixy Newspaper theme ki tarah. 
+
+Aap yahan apne paragraphs, bold text, ya extra details likh sakte hain.
