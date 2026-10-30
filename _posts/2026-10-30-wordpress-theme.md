@@ -1,10 +1,14 @@
 ---
 layout: post
 title: "JobPortal Pro Theme"
-image: "https://via.placeholder.com/600x400/ececec/999999?text=JobPortal"
-preview_link: "https://yolotemplates.github.io/jobportal-preview"
-download_link: "https://yourpaymentgateway.com/jobportal"
+image: "https://via.placeholder.com/800x400/ececec/999999?text=JobPortal+Preview"
+preview_link: "https://buy-link-here.com"
+download_link: "https://free-download-link.com"
+free_price: "$0.00"
+premium_price: "-$15.00"
 ---
+
+JobPortal Pro Theme ki details yahan aayengi...
 
 <div class="post-content">
   <h2>About JobPortal Pro</h2>
