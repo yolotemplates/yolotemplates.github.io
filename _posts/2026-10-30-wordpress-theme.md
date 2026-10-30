@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JobPortal Pro Theme"
+title: "SarkariResult Pro Theme"
 image: "https://via.placeholder.com/800x400/ececec/999999?text=JobPortal+Preview"
 preview_link: "https://buy-link-here.com"
 download_link: "https://free-download-link.com"
