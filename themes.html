@@ -1,0 +1,122 @@
+---
+layout: default
+title: All Themes
+---
+
+<h2 class="section-title">All Blogger Themes</h2>
+
+<!-- Themes Grid -->
+<div class="theme-grid" id="themes-container">
+    <!-- Jekyll loop bina kisi limit ke saari posts load karega -->
+    {% for post in site.posts %}
+    <div class="card theme-item">
+        <img src="{{ post.image }}" alt="{{ post.title }}" class="card-img">
+        <div class="card-body">
+            <a href="{{ post.url | relative_url }}"><h3 class="theme-title">{{ post.title }}</h3></a>
+            <div class="btn-group">
+                <a href="{{ post.preview_link }}" class="btn btn-preview" target="_blank"><i class="fa-solid fa-eye"></i> Preview</a>
+                <a href="{{ post.download_link }}" class="btn btn-download" target="_blank"><i class="fa-solid fa-download"></i> Download</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Pagination Buttons Container -->
+<div class="pagination-container" id="pagination"></div>
+
+<style>
+    /* Pagination CSS */
+    .pagination-container {
+        text-align: center;
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+    .page-btn {
+        padding: 8px 16px;
+        border: 2px solid #3498db;
+        background: #ffffff;
+        color: #3498db;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+    .page-btn.active, .page-btn:hover:not(:disabled) {
+        background: #3498db;
+        color: #ffffff;
+    }
+    .page-btn:disabled {
+        border-color: #cccccc;
+        color: #cccccc;
+        cursor: not-allowed;
+        background: #f9f9f9;
+    }
+    /* Hide all themes initially, JS will show them per page */
+    .theme-item {
+        display: none; 
+    }
+</style>
+
+<script>
+    // Pagination Logic
+    const itemsPerPage = 6; // Yahan aap set kar sakte hain ki ek page pe kitni themes dikhani hain
+    let currentPage = 1;
+    const items = document.querySelectorAll('.theme-item');
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+
+    function showPage(page) {
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        
+        // Show/Hide items based on current page
+        items.forEach((item, index) => {
+            if (index >= (page - 1) * itemsPerPage && index < page * itemsPerPage) {
+                item.style.display = 'flex'; // Card CSS layout maintain karne ke liye
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Page change par smooth scroll to top
+        renderPagination();
+    }
+
+    function renderPagination() {
+        const paginationDiv = document.getElementById('pagination');
+        paginationDiv.innerHTML = '';
+        
+        if (totalPages <= 1) return; // Agar items kam hain toh pagination hide rahega
+
+        // Prev Button
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'page-btn';
+        prevBtn.innerHTML = '<i class="fa-solid fa-angle-left"></i> Prev';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => showPage(currentPage - 1);
+        paginationDiv.appendChild(prevBtn);
+
+        // Page Numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+            btn.innerText = i;
+            btn.onclick = () => showPage(i);
+            paginationDiv.appendChild(btn);
+        }
+
+        // Next Button
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'page-btn';
+        nextBtn.innerHTML = 'Next <i class="fa-solid fa-angle-right"></i>';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => showPage(currentPage + 1);
+        paginationDiv.appendChild(nextBtn);
+    }
+
+    // Initialize first page
+    showPage(1);
+</script>
