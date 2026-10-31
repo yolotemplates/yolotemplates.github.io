@@ -138,6 +138,208 @@
         
         .post-content { background: var(--post-bg); padding: 30px; border-radius: 12px; margin-top: 20px; line-height: 1.6; color: var(--text-color); }
         .post-content img { max-width: 100%; border-radius: 8px; margin: 15px 0; }
+
+
+        /* --- Footer Variables --- */
+:root {
+    --footer-bg: #f5f8fa;
+    --footer-text: #5a6a7e;
+    --footer-heading: #002e5b;
+    --footer-brand-blue: #005bb5;
+    --footer-line: #dce4ec;
+    --footer-bottom-text: #000000;
+}
+
+body.dark-mode {
+    --footer-bg: #141414;
+    --footer-text: #a0aab5;
+    --footer-heading: #ffffff;
+    --footer-line: #333333;
+    --footer-bottom-text: #e0e0e0;
+}
+
+/* --- Footer Styles --- */
+.site-footer {
+    background-color: var(--footer-bg);
+    border-top: 4px solid var(--footer-brand-blue);
+    margin-top: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 50px 20px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-col h4 {
+    color: var(--footer-heading);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Heading ke niche ki choti neeli line */
+.footer-col h4::after {
+    content: '';
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--footer-brand-blue);
+    margin-top: 8px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 15px;
+}
+
+.footer-col ul li a {
+    color: var(--footer-text);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.6;
+    transition: color 0.3s;
+    display: block;
+}
+
+.footer-col ul li a:hover {
+    color: var(--footer-brand-blue);
+}
+
+/* Connect With Us - Social Icons */
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    background-color: var(--footer-brand-blue);
+    color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+    background-color: #004488;
+}
+
+/* Join Us Buttons */
+.join-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.join-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--footer-brand-blue);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.join-btn:hover {
+    background-color: #004488;
+}
+
+/* Footer Bottom */
+.footer-bottom-wrapper {
+    border-top: 1px solid var(--footer-line);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.copyright {
+    color: var(--footer-text);
+    font-size: 13px;
+}
+
+.footer-links a {
+    color: var(--footer-bottom-text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+.footer-links a:hover {
+    color: var(--footer-brand-blue);
+}
+
+/* Scroll To Top Button */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    background-color: var(--footer-brand-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 999;
+    transition: background 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #004488;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-links a { margin: 0 10px; }
+}
+
+
+
+
+        
     </style>
 </head>
 <body>
