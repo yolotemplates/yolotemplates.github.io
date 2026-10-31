@@ -4,55 +4,59 @@ layout: default
 <style>
     /* Main Layout Grid */
     .single-post-wrapper { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; align-items: flex-start; }
-    .post-main { flex: 1 1 65%; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); color: #e0e0e0; }
-    .post-sidebar { flex: 1 1 30%; display: flex; flex-direction: column; gap: 20px; }
-    .breadcrumb { font-size: 14px; color: #3498db; margin-bottom: 20px; }
-    .breadcrumb a { color: #3498db; text-decoration: none; font-weight: 600; }
-    .breadcrumb span { color: #888888; }
-    .post-title { font-size: 32px; color: #ffffff; margin-bottom: 20px; font-weight: bold; }
-    .post-featured-image { width: 100%; border-radius: 8px; margin-bottom: 20px; object-fit: cover; border: 1px solid #333333; }
-    .post-body { font-size: 16px; line-height: 1.8; color: #e0e0e0; }
+    .post-main { flex: 1 1 65%; background: var(--post-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px var(--nav-shadow); color: var(--text-color); transition: background 0.3s, color 0.3s; }
+    .post-sidebar { flex: 1 1 30%; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 90px; height: fit-content; }
     
-    .pricing-card { background: #1e1e1e; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid #333333; }
-    .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 18px; font-weight: bold; color: #ffffff; }
-    .price { color: #3498db; font-size: 24px; }
+    .breadcrumb { font-size: 14px; color: var(--primary-color); margin-bottom: 20px; }
+    .breadcrumb a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+    .breadcrumb span { color: var(--text-color); opacity: 0.7; }
+    .post-title { font-size: 32px; color: var(--logo-color); margin-bottom: 20px; font-weight: bold; transition: color 0.3s; }
+    .post-featured-image { width: 100%; border-radius: 8px; margin-bottom: 20px; object-fit: cover; border: 1px solid var(--border-color); }
+    .post-body { font-size: 16px; line-height: 1.8; color: var(--text-color); transition: color 0.3s; }
     
-    .pricing-features { list-style: none; margin-bottom: 25px; font-size: 14px; color: #e0e0e0; line-height: 2.5; padding: 0; }
+    .pricing-card { background: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px var(--nav-shadow); border: 1px solid var(--border-color); transition: background 0.3s, border 0.3s; }
+    .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 18px; font-weight: bold; color: var(--logo-color); transition: color 0.3s; }
+    .price { color: var(--primary-color); font-size: 24px; }
+    
+    .pricing-features { list-style: none; margin-bottom: 25px; font-size: 14px; color: var(--text-color); line-height: 2.5; padding: 0; }
     .pricing-features li i.fa-check { color: #2ecc71; margin-right: 10px; font-size: 16px; }
     .pricing-features li i.fa-times { color: #e74c3c; margin-right: 12px; margin-left: 2px; font-size: 16px; }
     
     .btn-buy { display: block; width: 100%; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 16px; cursor: pointer; border: none; }
-    .btn-free { background: #333333; color: #e0e0e0; border: 1px solid #444444; }
-    .btn-free:hover { background: #444444; }
+    .btn-free { background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); }
+    .btn-free:hover { background: var(--border-color); }
     .btn-premium { background: #2ecc71; color: #fff; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
     .btn-premium:hover { background: #27ae60; box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4); }
 
-    /* --- UPI Checkout Modal CSS (Dark Mode Fix) --- */
+    /* --- UPI Checkout Modal CSS --- */
     .checkout-modal-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.8); z-index: 9999;
+        background: rgba(0,0,0,0.7); z-index: 9999;
         display: none; align-items: center; justify-content: center;
     }
     .checkout-box {
         width: 100%; max-width: 400px; padding: 25px; border-radius: 12px;
-        background-color: #1e1e1e; color: #e0e0e0;
+        background-color: var(--card-bg); color: var(--text-color);
         box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
+        transition: background 0.3s, color 0.3s;
     }
     .close-modal {
         position: absolute; top: 15px; right: 20px; font-size: 24px;
-        cursor: pointer; color: #e0e0e0; border: none; background: none;
+        cursor: pointer; color: var(--text-color); border: none; background: none;
     }
     #qrcode { margin: 20px 0; display: flex; justify-content: center; background: #fff; padding: 10px; border-radius: 8px; }
     #utr-section { display: none; margin-top: 15px; }
-    .pending-msg { color: #f39c12; font-size: 15px; display: none; margin-top: 15px; background: #2a2015; padding: 15px; border-radius: 8px; border: 1px solid #f39c12; text-align: center; }
+    .pending-msg { color: #d35400; font-size: 15px; display: none; margin-top: 15px; background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid #f39c12; text-align: center; }
     .error-msg { color: #e74c3c; font-size: 14px; display: none; margin-top: 5px; text-align: center; font-weight: 500;}
-    .loader { color: #3498db; font-weight: bold; text-align: center; display: none; margin-top: 20px;}
-    .utr-input-field { padding: 12px; width: 100%; margin-bottom: 10px; border: 1px solid #333333; border-radius: 5px; box-sizing: border-box; font-size: 15px; background: #121212; color: #e0e0e0; outline: none; }
-    .utr-input-field:focus { border-color: #3498db; }
+    .loader { color: var(--primary-color); font-weight: bold; text-align: center; display: none; margin-top: 20px;}
+    
+    .utr-input-field { padding: 12px; width: 100%; margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 5px; box-sizing: border-box; font-size: 15px; background: var(--bg-color); color: var(--text-color); outline: none; transition: background 0.3s, color 0.3s; }
+    .utr-input-field:focus { border-color: var(--primary-color); }
+    
     .btn-pay { background: #00ba00; color: white; border: none; border-radius: 5px; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
     .btn-pay:hover { background: #009900; }
-    .btn-submit { background: #3498db; color: white; border: none; border-radius: 5px; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
-    .btn-submit:hover { background: #2980b9; }
+    .btn-submit { background: var(--primary-color); color: white; border: none; border-radius: 5px; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: opacity 0.3s; }
+    .btn-submit:hover { opacity: 0.9; }
     
     @media (max-width: 768px) { .post-main, .post-sidebar { flex: 1 1 100%; } }
 </style>
