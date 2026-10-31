@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "JobPortal Pro Theme"
-image: "https://via.placeholder.com/800x400/ececec/999999?text=JobPortal+Preview"
+title: "SarkariResult Pro Theme"
+category: "Premium"  <!-- Yahan aap Premium, Free, ya WordPress kuch bhi likh sakte hain -->
+image: "https://via.placeholder.com/800x400/ececec/999999?text=SarkariResult"
 preview_link: "https://buy-link-here.com"
 download_link: "https://free-download-link.com"
 free_price: "$0.00"
-premium_price: "$15.00"
+premium_price: "$5.00"
 ---
 
 JobPortal Pro Theme ki details yahan aayengi...
