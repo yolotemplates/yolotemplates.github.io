@@ -6,50 +6,229 @@
     <title>{{ site.name }} - {{ page.title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- CSS Variables for Light/Dark Mode --- */
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333333;
+            --nav-bg: #ffffff;
+            --nav-shadow: rgba(0,0,0,0.05);
+            --logo-color: #2c3e50;
+            --primary-color: #3498db;
+            --card-bg: #ffffff;
+            --border-color: #eeeeee;
+            --card-text: #2c3e50;
+            --post-bg: #ffffff;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --nav-bg: #1e1e1e;
+            --nav-shadow: rgba(255,255,255,0.02);
+            --logo-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --border-color: #333333;
+            --card-text: #e0e0e0;
+            --post-bg: #1e1e1e;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f6; color: #333; }
-        nav { background: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 24px; font-weight: 700; color: #2c3e50; text-decoration: none; }
-        .logo span { color: #3498db; }
-        .nav-links a { text-decoration: none; color: #2c3e50; font-weight: 600; margin-left: 20px; transition: color 0.3s; }
-        .nav-links a:hover { color: #3498db; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 30px; font-size: 28px; color: #2c3e50; }
+        body { background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            background: var(--nav-bg);
+            box-shadow: 0 4px 15px var(--nav-shadow);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 15px; }
         
-        /* Grid Layout & Cards */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .logo { font-size: 24px; font-weight: 700; color: var(--logo-color); text-decoration: none; }
+        .logo span { color: var(--primary-color); }
+
+        .nav-center { display: flex; align-items: center; }
+        .nav-center a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        .nav-center a:hover { color: var(--primary-color); }
+        .close-menu { display: none; }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .icon-btn:hover { color: var(--primary-color); }
+
+        /* --- Mobile Slide Menu Styles --- */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .overlay.active { display: block; opacity: 1; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            
+            .nav-center {
+                position: fixed;
+                top: 0;
+                left: -250px;
+                width: 250px;
+                height: 100vh;
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 60px 20px 20px;
+                box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+            .nav-center.active { left: 0; }
+            
+            .nav-center a { margin: 15px 0; font-size: 18px; width: 100%; }
+            
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px; right: 20px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                color: var(--text-color);
+                cursor: pointer;
+            }
+        }
+
+        /* --- Existing Layout & Cards CSS Adapted for Dark Mode --- */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 28px; color: var(--logo-color); }
+        
         .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px var(--nav-shadow); transition: transform 0.3s ease; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); }
         .card-img { width: 100%; height: 200px; object-fit: cover; }
         .card-body { padding: 20px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
         .card-body a { text-decoration: none; }
-        .theme-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #2c3e50; transition: color 0.3s; }
-        .theme-title:hover { color: #3498db; }
+        .theme-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: var(--card-text); transition: color 0.3s; }
+        .theme-title:hover { color: var(--primary-color); }
+        
         .btn-group { display: flex; gap: 10px; }
         .btn { text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: 1; }
         .btn-preview { background: #f1f3f5; color: #495057; }
-        .btn-preview:hover { background: #e2e6ea; }
-        .btn-download { background: #3498db; color: #ffffff; }
+        .btn-preview:hover { background: #e2e6ea; color: #212529; }
+        .btn-download { background: var(--primary-color); color: #ffffff; }
         .btn-download:hover { background: #2980b9; }
-        .view-more-container { text-align: center; margin-top: 40px; }
-        .btn-view-more { display: inline-flex; align-items: center; gap: 8px; background: #2c3e50; color: #ffffff; padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; }
         
-        /* Single Post Style */
-        .post-content { background: #fff; padding: 30px; border-radius: 12px; margin-top: 20px; line-height: 1.6; }
+        .view-more-container { text-align: center; margin-top: 40px; }
+        .btn-view-more { display: inline-flex; align-items: center; gap: 8px; background: var(--logo-color); color: var(--nav-bg); padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; }
+        
+        .post-content { background: var(--post-bg); padding: 30px; border-radius: 12px; margin-top: 20px; line-height: 1.6; color: var(--text-color); }
         .post-content img { max-width: 100%; border-radius: 8px; margin: 15px 0; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
-        <div class="nav-links">
-            <a href="{{ '/' | relative_url }}"><i class="fa-solid fa-house"></i> Home</a>
+    <!-- Updated Navbar HTML -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+            <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
+        </div>
+        
+        <div class="nav-center" id="nav-menu">
+            <button class="close-menu" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/themes.html' | relative_url }}">All Themes</a>
+            <a href="#">Blogger Templates</a>
+        </div>
+        
+        <div class="nav-right">
+            <button class="icon-btn" id="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
+            <button class="icon-btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </nav>
+    
+    <div class="overlay" id="menu-overlay"></div>
 
     <div class="container">
         <!-- Yahan baaki pages ka content aayega -->
         {{ content }}
     </div>
+
+    <!-- JavaScript for Navbar & Dark Mode -->
+    <script>
+        // Mobile Menu Logic
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const closeBtn = document.getElementById('close-btn');
+        const navMenu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('menu-overlay');
+
+        function openMenu() {
+            navMenu.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        hamburgerBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Dark Mode Logic with LocalStorage
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const body = document.body;
+        const icon = darkModeBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        darkModeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    </script>
 </body>
 </html>
