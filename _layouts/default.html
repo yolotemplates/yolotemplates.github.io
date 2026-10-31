@@ -6,7 +6,7 @@
     <title>{{ site.name }} - {{ page.title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- CSS Variables for Light/Dark Mode --- */
+        /* --- CSS Variables --- */
         :root {
             --bg-color: #f4f7f6;
             --text-color: #333333;
@@ -35,7 +35,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
 
-        /* --- Navbar Styles --- */
+        /* --- Navbar --- */
         .navbar {
             background: var(--nav-bg);
             box-shadow: 0 4px 15px var(--nav-shadow);
@@ -44,113 +44,76 @@
             z-index: 1000;
             transition: background 0.3s;
         }
-
-        /* Fixed width container aligning with body content */
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Left Side: Logo + Menu combined */
-        .nav-left { 
-            display: flex; 
-            align-items: center; 
-            gap: 40px; 
-        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
         
-        .logo-group {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--text-color);
-            cursor: pointer;
-        }
-
+        .nav-left { display: flex; align-items: center; gap: 40px; }
+        .logo-group { display: flex; align-items: center; gap: 15px; }
+        .hamburger { display: none; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
         .logo { font-size: 24px; font-weight: 700; color: var(--logo-color); text-decoration: none; }
         .logo span { color: var(--primary-color); }
 
         .nav-center { display: flex; align-items: center; }
-        .nav-center a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 600;
-            margin-right: 25px;
-            transition: color 0.3s;
-        }
+        .nav-center a { text-decoration: none; color: var(--text-color); font-weight: 600; margin-right: 25px; transition: color 0.3s; }
         .nav-center a:hover { color: var(--primary-color); }
         .close-menu { display: none; }
 
-        /* Right Side: Dark Mode + Search */
         .nav-right { display: flex; align-items: center; gap: 15px; }
-        
-        .icon-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+        .icon-btn { background: none; border: none; font-size: 20px; color: var(--text-color); cursor: pointer; transition: color 0.3s; }
         .icon-btn:hover { color: var(--primary-color); }
 
-        /* --- Mobile Slide Menu Styles --- */
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 998;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        /* --- Search Dropdown UI --- */
+        .search-overlay {
+            position: absolute;
+            top: 100%; left: 0; width: 100%;
+            background: var(--nav-bg);
+            box-shadow: 0 10px 15px var(--nav-shadow);
+            padding: 20px 5%;
+            z-index: 997;
+            display: none; /* Hidden Default */
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
         }
+        .search-overlay.active { display: flex; }
+        .search-container { width: 100%; max-width: 800px; display: flex; align-items: center; gap: 10px; }
+        #search-input {
+            flex: 1; padding: 12px 20px; font-size: 16px;
+            border: 2px solid var(--border-color); border-radius: 8px;
+            background: var(--bg-color); color: var(--text-color); outline: none;
+        }
+        #search-input:focus { border-color: var(--primary-color); }
+        #close-search-btn { background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
+        
+        .search-results { width: 100%; max-width: 800px; margin-top: 15px; max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .search-item {
+            display: flex; align-items: center; gap: 15px; padding: 10px;
+            background: var(--card-bg); border-radius: 8px; text-decoration: none; color: var(--text-color);
+            transition: background 0.2s; border: 1px solid var(--border-color);
+        }
+        .search-item:hover { background: var(--bg-color); }
+        .search-item img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; }
+        .search-item-info { display: flex; flex-direction: column; }
+        .search-item-title { font-weight: bold; font-size: 16px; color: var(--text-color); }
+        .search-item-category { font-size: 12px; color: var(--primary-color); }
+
+        /* --- Mobile Slide Menu --- */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .overlay.active { display: block; opacity: 1; }
 
         @media (max-width: 768px) {
             .hamburger { display: block; }
             .nav-left { gap: 0; }
-            
             .nav-center {
-                position: fixed;
-                top: 0;
-                left: -250px;
-                width: 250px;
-                height: 100vh;
-                background: var(--nav-bg);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 60px 20px 20px;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.1);
-                transition: left 0.3s ease;
-                z-index: 999;
+                position: fixed; top: 0; left: -250px; width: 250px; height: 100vh;
+                background: var(--nav-bg); flex-direction: column; align-items: flex-start;
+                padding: 60px 20px 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.1); transition: left 0.3s ease; z-index: 999;
             }
             .nav-center.active { left: 0; }
-            
             .nav-center a { margin: 15px 0; font-size: 18px; width: 100%; }
-            
-            .close-menu {
-                display: block;
-                position: absolute;
-                top: 20px; right: 20px;
-                background: none;
-                border: none;
-                font-size: 24px;
-                color: var(--text-color);
-                cursor: pointer;
-            }
+            .close-menu { display: block; position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
         }
 
-        /* --- Existing Layout & Cards CSS --- */
+        /* --- Body Components --- */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .section-title { text-align: center; margin-bottom: 30px; font-size: 28px; color: var(--logo-color); }
         
@@ -181,7 +144,6 @@
     
     <nav class="navbar">
         <div class="nav-container">
-            <!-- Left Side: Logo + Menu -->
             <div class="nav-left">
                 <div class="logo-group">
                     <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
@@ -196,11 +158,19 @@
                 </div>
             </div>
             
-            <!-- Right Side: Icons -->
             <div class="nav-right">
                 <button class="icon-btn" id="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
                 <button class="icon-btn search-btn" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
+        </div>
+
+        <!-- Working Search Box Overlay -->
+        <div class="search-overlay" id="search-overlay">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search themes (e.g., JobPortal)...">
+                <button id="close-search-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="search-results" id="search-results"></div>
         </div>
     </nav>
     
@@ -217,19 +187,10 @@
         const navMenu = document.getElementById('nav-menu');
         const overlay = document.getElementById('menu-overlay');
 
-        function openMenu() {
-            navMenu.classList.add('active');
-            overlay.classList.add('active');
-        }
-
-        function closeMenu() {
-            navMenu.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-
-        hamburgerBtn.addEventListener('click', openMenu);
+        hamburgerBtn.addEventListener('click', () => { navMenu.classList.add('active'); overlay.classList.add('active'); });
         closeBtn.addEventListener('click', closeMenu);
         overlay.addEventListener('click', closeMenu);
+        function closeMenu() { navMenu.classList.remove('active'); overlay.classList.remove('active'); }
 
         // --- 2. Dark Mode Logic ---
         const darkModeBtn = document.getElementById('dark-mode-btn');
@@ -243,20 +204,74 @@
 
         darkModeBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark'); icon.classList.replace('fa-moon', 'fa-sun');
             } else {
-                localStorage.setItem('theme', 'light');
-                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light'); icon.classList.replace('fa-sun', 'fa-moon');
             }
         });
 
-        // --- 3. Search Icon Click Event ---
+        // --- 3. Working Search Functionality ---
         const searchBtn = document.getElementById('search-btn');
+        const searchOverlay = document.getElementById('search-overlay');
+        const closeSearchBtn = document.getElementById('close-search-btn');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        let searchData = []; // Isme JSON data store hoga
+
+        // Open Search Box & Fetch Data
         searchBtn.addEventListener('click', () => {
-            alert("Search Button Clicked! (Yahan par aap dropdown box ya search page ka logic set kar sakte hain.)");
+            searchOverlay.classList.toggle('active');
+            if(searchOverlay.classList.contains('active')) {
+                searchInput.focus();
+                // Data tabhi fetch hoga jab pehli baar search open ho (fast loading ke liye)
+                if(searchData.length === 0) {
+                    fetch('{{ "/search.json" | relative_url }}')
+                        .then(response => response.json())
+                        .then(data => searchData = data)
+                        .catch(err => console.error("Search data load fail ho gaya:", err));
+                }
+            }
+        });
+
+        // Close Search Box
+        closeSearchBtn.addEventListener('click', () => {
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        });
+
+        // Search Input Filter
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            searchResults.innerHTML = ''; 
+            
+            if(query.length < 2) return; // 2 characters type hone ke baad hi search shuru hoga
+
+            const filtered = searchData.filter(post => 
+                post.title.toLowerCase().includes(query) || 
+                post.category.toLowerCase().includes(query)
+            );
+
+            if(filtered.length === 0) {
+                searchResults.innerHTML = '<p style="padding:10px;">Koi theme nahi mili.</p>';
+                return;
+            }
+
+            filtered.forEach(post => {
+                const item = document.createElement('a');
+                item.href = post.url;
+                item.className = 'search-item';
+                item.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}">
+                    <div class="search-item-info">
+                        <span class="search-item-title">${post.title}</span>
+                        <span class="search-item-category">${post.category || 'Theme'}</span>
+                    </div>
+                `;
+                searchResults.appendChild(item);
+            });
         });
     </script>
 </body>
