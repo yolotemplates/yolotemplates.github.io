@@ -97,8 +97,12 @@ layout: default
     <!-- Left Side: Content -->
     <div class="post-main">
         <div class="breadcrumb">
-            <a href="{{ '/' | relative_url }}">Home</a> &gt; <a href="#">Premium</a> &gt; <span>{{ page.title }}</span>
-        </div>
+            <a href="{{ '/' | relative_url }}">Home</a> &gt; 
+            {% if page.category %}
+            <a href="{{ '/themes.html' | relative_url }}">{{ page.category }}</a> &gt; 
+            {% endif %}
+        <span>{{ page.title }}</span>
+</div>
         
         <h1 class="post-title">{{ page.title }}</h1>
         
