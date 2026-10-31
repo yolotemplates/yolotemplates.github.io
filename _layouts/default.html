@@ -39,18 +39,35 @@
         .navbar {
             background: var(--nav-bg);
             box-shadow: 0 4px 15px var(--nav-shadow);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
             transition: background 0.3s;
         }
 
-        .nav-left { display: flex; align-items: center; gap: 15px; }
+        /* Fixed width container aligning with body content */
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Left Side: Logo + Menu combined */
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 40px; 
+        }
         
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .hamburger {
             display: none;
             background: none;
@@ -68,12 +85,13 @@
             text-decoration: none;
             color: var(--text-color);
             font-weight: 600;
-            margin: 0 15px;
+            margin-right: 25px;
             transition: color 0.3s;
         }
         .nav-center a:hover { color: var(--primary-color); }
         .close-menu { display: none; }
 
+        /* Right Side: Dark Mode + Search */
         .nav-right { display: flex; align-items: center; gap: 15px; }
         
         .icon-btn {
@@ -100,6 +118,7 @@
 
         @media (max-width: 768px) {
             .hamburger { display: block; }
+            .nav-left { gap: 0; }
             
             .nav-center {
                 position: fixed;
@@ -131,7 +150,7 @@
             }
         }
 
-        /* --- Existing Layout & Cards CSS Adapted for Dark Mode --- */
+        /* --- Existing Layout & Cards CSS --- */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .section-title { text-align: center; margin-bottom: 30px; font-size: 28px; color: var(--logo-color); }
         
@@ -159,36 +178,40 @@
     </style>
 </head>
 <body>
-    <!-- Updated Navbar HTML -->
+    
     <nav class="navbar">
-        <div class="nav-left">
-            <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
-            <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
-        </div>
-        
-        <div class="nav-center" id="nav-menu">
-            <button class="close-menu" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
-            <a href="{{ '/' | relative_url }}">Home</a>
-            <a href="{{ '/themes.html' | relative_url }}">All Themes</a>
-            <a href="#">Blogger Templates</a>
-        </div>
-        
-        <div class="nav-right">
-            <button class="icon-btn" id="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
-            <button class="icon-btn search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <div class="nav-container">
+            <!-- Left Side: Logo + Menu -->
+            <div class="nav-left">
+                <div class="logo-group">
+                    <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
+                    <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
+                </div>
+                
+                <div class="nav-center" id="nav-menu">
+                    <button class="close-menu" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+                    <a href="{{ '/' | relative_url }}">Home</a>
+                    <a href="{{ '/themes.html' | relative_url }}">All Themes</a>
+                    <a href="#">Blogger Templates</a>
+                </div>
+            </div>
+            
+            <!-- Right Side: Icons -->
+            <div class="nav-right">
+                <button class="icon-btn" id="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
+                <button class="icon-btn search-btn" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
         </div>
     </nav>
     
     <div class="overlay" id="menu-overlay"></div>
 
     <div class="container">
-        <!-- Yahan baaki pages ka content aayega -->
         {{ content }}
     </div>
 
-    <!-- JavaScript for Navbar & Dark Mode -->
     <script>
-        // Mobile Menu Logic
+        // --- 1. Mobile Menu Logic ---
         const hamburgerBtn = document.getElementById('hamburger-btn');
         const closeBtn = document.getElementById('close-btn');
         const navMenu = document.getElementById('nav-menu');
@@ -208,7 +231,7 @@
         closeBtn.addEventListener('click', closeMenu);
         overlay.addEventListener('click', closeMenu);
 
-        // Dark Mode Logic with LocalStorage
+        // --- 2. Dark Mode Logic ---
         const darkModeBtn = document.getElementById('dark-mode-btn');
         const body = document.body;
         const icon = darkModeBtn.querySelector('i');
@@ -229,6 +252,14 @@
                 icon.classList.replace('fa-sun', 'fa-moon');
             }
         });
+
+        // --- 3. Search Icon Click Event ---
+        const searchBtn = document.getElementById('search-btn');
+        searchBtn.addEventListener('click', () => {
+            alert("Search Button Clicked! (Yahan par aap dropdown box ya search page ka logic set kar sakte hain.)");
+        });
     </script>
 </body>
 </html>
+```<ElicitationsGroup>
+</ElicitationsGroup>
