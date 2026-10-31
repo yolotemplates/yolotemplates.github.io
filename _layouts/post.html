@@ -192,6 +192,9 @@ layout: default
         document.getElementById("utr-section").style.display = "block";
     }
 
+    // Yahan par apna naya deploy kiya hua Web App URL paste karein
+    const scriptUrl = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"; 
+
     function verifyPayment() {
         const utr = document.getElementById("utr-input").value;
         const errorMsg = document.getElementById("error-text");
@@ -211,30 +214,64 @@ layout: default
 
         document.getElementById("display-utr").innerText = utr;
 
-        // --- NAYA CODE: Google Apps Script ko data bhejna ---
-        // Yahan par apna deploy kiya hua Web App URL paste karein
-        const scriptUrl = "https://script.google.com/macros/s/AKfycbwtfVR-HOwogCorY0pJ3nQnWJkDW90cM3wbc3JyZ8YfZiwzMCtljZJphfQywlIhDU8P/exec"; 
-        
-        // Jekyll se Theme ka naam nikalna
+        // Jekyll variables ko encode karna
         const themeName = encodeURIComponent("{{ page.title }}");
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
-        
-        // Full URL banakar GET request bhejna
-        const fullUrl = `${scriptUrl}?theme=${themeName}&price=${price}&utr=${utrValue}`;
 
-        fetch(fullUrl)
+        // 1. Data Google Sheet & Telegram ko bhejna (action=create)
+        const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}`;
+
+        fetch(createUrl)
             .then(response => response.json())
             .then(data => {
-                // Jab Telegram par message chala jayega tab UI update hoga
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("pending").style.display = "block";
+                
+                // 2. Polling shuru karna (Har 5 second me status check karna)
+                checkPaymentStatus(utrValue);
             })
             .catch(error => {
-                // Agar internet issue ki wajah se fetch fail hua, toh bhi user ko UI dikha denge
-                console.error("Error sending alert:", error);
+                console.error("Error:", error);
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("pending").style.display = "block";
             });
+    }
+
+    // Auto-check logic (Polling)
+    function checkPaymentStatus(utrValue) {
+        const checkInterval = setInterval(() => {
+            const checkUrl = `${scriptUrl}?action=check&utr=${utrValue}`;
+            
+            fetch(checkUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "Success") {
+                        clearInterval(checkInterval); // Checking band karo
+                        
+                        // User ko Success Message aur Download Button dikhao
+                        const pendingDiv = document.getElementById("pending");
+                        pendingDiv.style.background = "rgba(46, 204, 113, 0.1)";
+                        pendingDiv.style.borderColor = "#2ecc71";
+                        pendingDiv.innerHTML = `
+                            <h3 style="margin-top: 0; color: #2ecc71;">✅ Payment Successful!</h3>
+                            <p style="color: #e0e0e0;">Your UTR <strong>${decodeURIComponent(utrValue)}</strong> has been verified.</p>
+                            <a href="{{ page.download_link }}" target="_blank" style="display: block; background: #2ecc71; color: white; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 15px;">📥 Download Theme Now</a>
+                        `;
+                    } else if (data.status === "Rejected") {
+                        clearInterval(checkInterval); // Checking band karo
+                        
+                        // User ko Rejected Message dikhao
+                        const pendingDiv = document.getElementById("pending");
+                        pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
+                        pendingDiv.style.borderColor = "#e74c3c";
+                        pendingDiv.innerHTML = `
+                            <h3 style="margin-top: 0; color: #e74c3c;">❌ Payment Rejected</h3>
+                            <p style="color: #e0e0e0;">We could not verify your payment for UTR <strong>${decodeURIComponent(utrValue)}</strong>. Please contact support.</p>
+                        `;
+                    }
+                })
+                .catch(error => console.error("Polling Error:", error));
+        }, 5000); // 5000 milliseconds = 5 seconds
     }
 </script>
