@@ -3,122 +3,78 @@ layout: default
 ---
 <style>
     /* Main Layout Grid */
-    .single-post-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
-        margin-top: 20px;
-        align-items: flex-start;
-    }
-    
-    /* Left Side: Content Area */
-    .post-main {
-        flex: 1 1 65%;
-        background: #ffffff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-    
-    /* Right Side: Sidebar */
-    .post-sidebar {
-        flex: 1 1 30%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    /* Breadcrumbs & Title */
-    .breadcrumb {
-        font-size: 14px;
-        color: #3498db;
-        margin-bottom: 20px;
-    }
+    .single-post-wrapper { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; align-items: flex-start; }
+    .post-main { flex: 1 1 65%; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); color: #e0e0e0; }
+    .post-sidebar { flex: 1 1 30%; display: flex; flex-direction: column; gap: 20px; }
+    .breadcrumb { font-size: 14px; color: #3498db; margin-bottom: 20px; }
     .breadcrumb a { color: #3498db; text-decoration: none; font-weight: 600; }
-    .breadcrumb span { color: #7f8c8d; }
-    .post-title { font-size: 32px; color: #000; margin-bottom: 20px; font-weight: bold; }
-    .post-featured-image { width: 100%; border-radius: 8px; margin-bottom: 20px; object-fit: cover; border: 1px solid #eee; }
+    .breadcrumb span { color: #888888; }
+    .post-title { font-size: 32px; color: #ffffff; margin-bottom: 20px; font-weight: bold; }
+    .post-featured-image { width: 100%; border-radius: 8px; margin-bottom: 20px; object-fit: cover; border: 1px solid #333333; }
+    .post-body { font-size: 16px; line-height: 1.8; color: #e0e0e0; }
     
-    .post-body { font-size: 16px; line-height: 1.8; color: #444; }
-
-    /* Sidebar Pricing Cards */
-    .pricing-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 25px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border: 1px solid #f0f0f0;
-    }
-    .pricing-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #000;
-    }
-    .price { color: #0056b3; font-size: 24px; }
+    .pricing-card { background: #1e1e1e; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid #333333; }
+    .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 18px; font-weight: bold; color: #ffffff; }
+    .price { color: #3498db; font-size: 24px; }
     
-    .pricing-features {
-        list-style: none;
-        margin-bottom: 25px;
-        font-size: 14px;
-        color: #555;
-        line-height: 2.5;
-        padding: 0;
-    }
+    .pricing-features { list-style: none; margin-bottom: 25px; font-size: 14px; color: #e0e0e0; line-height: 2.5; padding: 0; }
     .pricing-features li i.fa-check { color: #2ecc71; margin-right: 10px; font-size: 16px; }
     .pricing-features li i.fa-times { color: #e74c3c; margin-right: 12px; margin-left: 2px; font-size: 16px; }
     
-    .btn-buy {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 14px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.3s;
-        font-size: 16px;
-    }
-    .btn-free { background: #f4f5f7; color: #333; border: 1px solid #ddd; }
-    .btn-free:hover { background: #e2e6ea; }
+    .btn-buy { display: block; width: 100%; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 16px; cursor: pointer; border: none; }
+    .btn-free { background: #333333; color: #e0e0e0; border: 1px solid #444444; }
+    .btn-free:hover { background: #444444; }
     .btn-premium { background: #2ecc71; color: #fff; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3); }
     .btn-premium:hover { background: #27ae60; box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4); }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        .post-main, .post-sidebar { flex: 1 1 100%; }
+    /* --- UPI Checkout Modal CSS (Dark Mode Fix) --- */
+    .checkout-modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.8); z-index: 9999;
+        display: none; align-items: center; justify-content: center;
     }
+    .checkout-box {
+        width: 100%; max-width: 400px; padding: 25px; border-radius: 12px;
+        background-color: #1e1e1e; color: #e0e0e0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
+    }
+    .close-modal {
+        position: absolute; top: 15px; right: 20px; font-size: 24px;
+        cursor: pointer; color: #e0e0e0; border: none; background: none;
+    }
+    #qrcode { margin: 20px 0; display: flex; justify-content: center; background: #fff; padding: 10px; border-radius: 8px; }
+    #utr-section { display: none; margin-top: 15px; }
+    .pending-msg { color: #f39c12; font-size: 15px; display: none; margin-top: 15px; background: #2a2015; padding: 15px; border-radius: 8px; border: 1px solid #f39c12; text-align: center; }
+    .error-msg { color: #e74c3c; font-size: 14px; display: none; margin-top: 5px; text-align: center; font-weight: 500;}
+    .loader { color: #3498db; font-weight: bold; text-align: center; display: none; margin-top: 20px;}
+    .utr-input-field { padding: 12px; width: 100%; margin-bottom: 10px; border: 1px solid #333333; border-radius: 5px; box-sizing: border-box; font-size: 15px; background: #121212; color: #e0e0e0; outline: none; }
+    .utr-input-field:focus { border-color: #3498db; }
+    .btn-pay { background: #00ba00; color: white; border: none; border-radius: 5px; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .btn-pay:hover { background: #009900; }
+    .btn-submit { background: #3498db; color: white; border: none; border-radius: 5px; width: 100%; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .btn-submit:hover { background: #2980b9; }
+    
+    @media (max-width: 768px) { .post-main, .post-sidebar { flex: 1 1 100%; } }
 </style>
+
+<!-- Load QRCode Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <div class="single-post-wrapper">
     <!-- Left Side: Content -->
     <div class="post-main">
         <div class="breadcrumb">
             <a href="{{ '/' | relative_url }}">Home</a> &gt; 
-            {% if page.category %}
-            <a href="{{ '/themes.html' | relative_url }}">{{ page.category }}</a> &gt; 
-            {% endif %}
-        <span>{{ page.title }}</span>
-</div>
-        
-        <h1 class="post-title">{{ page.title }}</h1>
-        
-        {% if page.image %}
-        <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image">
-        {% endif %}
-        
-        <div class="post-body">
-            <!-- Yahan aapki post ka main text aayega -->
-            {{ content }}
+            {% if page.category %}<a href="{{ '/themes.html' | relative_url }}">{{ page.category }}</a> &gt; {% endif %}
+            <span>{{ page.title }}</span>
         </div>
+        <h1 class="post-title">{{ page.title }}</h1>
+        {% if page.image %}<img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image">{% endif %}
+        <div class="post-body">{{ content }}</div>
     </div>
 
     <!-- Right Side: Sidebar Cards -->
     <div class="post-sidebar">
-        
         <!-- Free Version Card -->
         <div class="pricing-card">
             <div class="pricing-header">
@@ -129,8 +85,6 @@ layout: default
                 <li><i class="fa-solid fa-check"></i> Basic Template Features</li>
                 <li><i class="fa-solid fa-times"></i> Remove Footer Credits</li>
                 <li><i class="fa-solid fa-times"></i> No Encrypted Scripts</li>
-                <li><i class="fa-solid fa-times"></i> Customization Support</li>
-                <li><i class="fa-solid fa-times"></i> Lifetime Template Updates</li>
             </ul>
             <a href="{{ page.download_link }}" class="btn-buy btn-free" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i> Free Download</a>
         </div>
@@ -144,12 +98,118 @@ layout: default
             <ul class="pricing-features">
                 <li><i class="fa-solid fa-check"></i> No Encrypted Scripts</li>
                 <li><i class="fa-solid fa-check"></i> Remove Footer Credits</li>
-                <li><i class="fa-solid fa-check"></i> One Time Payment</li>
                 <li><i class="fa-solid fa-check"></i> Lifetime Template Updates</li>
-                <li><i class="fa-solid fa-check"></i> 3 Months of Premium Support</li>
             </ul>
-            <a href="{{ page.preview_link }}" class="btn-buy btn-premium" target="_blank">💳 Buy Now</a>
+            <!-- Buy Now Button (Triggers Popup) -->
+            <button class="btn-buy btn-premium" onclick="openCheckoutModal()">💳 Buy Now</button>
         </div>
-
     </div>
 </div>
+
+<!-- ==========================================
+     UPI CHECKOUT MODAL (Hidden By Default)
+=========================================== -->
+<div class="checkout-modal-overlay" id="checkout-modal">
+    <div class="checkout-box">
+        <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+        <h2 style="text-align: center; margin-top: 0; color: #ffffff;">Order Checkout</h2>
+        
+        <p style="text-align: center; font-size: 18px;">Total Amount: <strong style="color: #3498db;">₹<span id="cart-total"></span></strong></p>
+        
+        <div id="qrcode"></div>
+
+        <div id="paid-action">
+            <p style="font-size: 14px; text-align: center; margin-bottom: 15px; color: #e0e0e0;">Scan QR with Paytm, GPay, or PhonePe.</p>
+            <button class="btn-pay" onclick="showUtrField()">I Have Paid</button>
+        </div>
+
+        <div id="utr-section">
+            <p style="font-size: 14px; text-align: center; color: #e0e0e0;">Enter the exact 12-digit UTR/Reference No. below:</p>
+            <input type="text" id="utr-input" class="utr-input-field" placeholder="e.g., 612345678901" maxlength="12">
+            <div id="error-text" class="error-msg">❌ Invalid UTR! Must be 12 digits starting with 6.</div>
+            <button class="btn-submit" onclick="verifyPayment()">Submit UTR</button>
+        </div>
+
+        <div id="loading" class="loader">⏳ Submitting details...</div>
+        
+        <div id="pending" class="pending-msg">
+            <h3 style="margin-top: 0; color: #f39c12;">⏳ Verification Pending</h3>
+            <p style="color: #e0e0e0;">Your payment UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> has been sent.</p>
+            <p style="font-size: 13px; color: #aaaaaa;">Please allow some time for manual verification. Your theme will be delivered to your email shortly.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Jekyll Variables ko JavaScript me pass kar rahe hain
+    const rawPrice = "{{ page.premium_price }}"; 
+    
+    // Sirf numbers nikalna (e.g. "₹500.00" -> "500.00")
+    const numericPrice = rawPrice.replace(/[^0-9.]/g, ''); 
+
+    function openCheckoutModal() {
+        document.getElementById("checkout-modal").style.display = "flex";
+        document.getElementById("cart-total").innerText = numericPrice;
+        
+        // Reset modal state
+        document.getElementById("paid-action").style.display = "block";
+        document.getElementById("utr-section").style.display = "none";
+        document.getElementById("pending").style.display = "none";
+        document.getElementById("qrcode").style.display = "flex";
+        document.getElementById("utr-input").value = "";
+        
+        generateQR();
+    }
+
+    function closeCheckoutModal() {
+        document.getElementById("checkout-modal").style.display = "none";
+        document.getElementById("qrcode").innerHTML = ""; // Clear QR code
+    }
+
+    function generateQR() {
+        const upiId = "9568206895@ptsbi"; 
+        const payeeName = "Deepak Saini";      
+        const upiString = `upi://pay?pa=${upiId}&pn=${payeeName}&am=${numericPrice}&cu=INR`;
+
+        document.getElementById("qrcode").innerHTML = "";
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: upiString,
+            width: 200,
+            height: 200,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+
+    function showUtrField() {
+        document.getElementById("paid-action").style.display = "none";
+        document.getElementById("utr-section").style.display = "block";
+    }
+
+    function verifyPayment() {
+        const utr = document.getElementById("utr-input").value;
+        const errorMsg = document.getElementById("error-text");
+        
+        // 2026 UTR strict validation (starts with 6, exactly 12 digits)
+        const utrRegex = /^6\d{11}$/;
+
+        if (!utrRegex.test(utr)) {
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        errorMsg.style.display = "none";
+        document.getElementById("utr-section").style.display = "none";
+        document.getElementById("qrcode").style.display = "none"; 
+        document.getElementById("loading").style.display = "block";
+
+        document.getElementById("display-utr").innerText = utr;
+
+        setTimeout(() => {
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("pending").style.display = "block";
+        }, 2000); 
+    }
+</script>
