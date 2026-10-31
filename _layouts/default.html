@@ -566,6 +566,28 @@ body.dark-mode {
                 searchResults.appendChild(item);
             });
         });
+
+
+
+
+        // --- Scroll To Top Logic ---
+        const scrollBtn = document.getElementById("scrollToTopBtn");
+        window.addEventListener("scroll", () => {
+            // Jab user 300px niche scroll karega tabhi button dikhega
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.style.display = "flex";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        });
+
+        scrollBtn.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+        
     </script>
 </body>
 </html>
