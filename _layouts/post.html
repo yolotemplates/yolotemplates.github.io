@@ -211,9 +211,30 @@ layout: default
 
         document.getElementById("display-utr").innerText = utr;
 
-        setTimeout(() => {
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("pending").style.display = "block";
-        }, 2000); 
+        // --- NAYA CODE: Google Apps Script ko data bhejna ---
+        // Yahan par apna deploy kiya hua Web App URL paste karein
+        const scriptUrl = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"; 
+        
+        // Jekyll se Theme ka naam nikalna
+        const themeName = encodeURIComponent("{{ page.title }}");
+        const price = encodeURIComponent(numericPrice);
+        const utrValue = encodeURIComponent(utr);
+        
+        // Full URL banakar GET request bhejna
+        const fullUrl = `${scriptUrl}?theme=${themeName}&price=${price}&utr=${utrValue}`;
+
+        fetch(fullUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Jab Telegram par message chala jayega tab UI update hoga
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("pending").style.display = "block";
+            })
+            .catch(error => {
+                // Agar internet issue ki wajah se fetch fail hua, toh bhi user ko UI dikha denge
+                console.error("Error sending alert:", error);
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("pending").style.display = "block";
+            });
     }
 </script>
