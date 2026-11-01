@@ -1,0 +1,116 @@
+---
+layout: default
+title: "Contact Support"
+permalink: /contact.html
+---
+
+<style>
+    /* Contact Page Specific CSS */
+    .contact-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: var(--card-bg, #1e1e1e);
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        border: 1px solid var(--border-color, #333);
+        transition: background 0.3s, color 0.3s;
+    }
+    .contact-header {
+        margin-bottom: 30px;
+    }
+    .contact-header h1 {
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+    .contact-header p {
+        color: #aaaaaa;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .contact-methods {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .contact-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    .contact-btn i {
+        font-size: 22px;
+    }
+    .contact-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    
+    /* Social Brand Colors */
+    .btn-whatsapp { background: #25D366; }
+    .btn-telegram { background: #0088cc; }
+    .btn-email { background: #ea4335; }
+    .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .btn-facebook { background: #1877F2; }
+    
+    .order-note {
+        margin-top: 30px;
+        padding: 15px;
+        background: rgba(52, 152, 219, 0.1);
+        border-left: 4px solid #3498db;
+        color: #e0e0e0;
+        font-size: 14px;
+        text-align: left;
+        border-radius: 4px;
+    }
+</style>
+
+<div class="contact-container">
+    <div class="contact-header">
+        <h1>🤝 Need Help?</h1>
+        <p>Agar aapko theme download karne mein ya payment verification mein koi bhi problem aa rahi hai, toh turant humse contact karein. Hum jaldi se jaldi aapki problem solve karenge.</p>
+    </div>
+
+    <div class="contact-methods">
+        <!-- 1. WhatsApp -->
+        <a href="https://wa.me/91YOUR_NUMBER_HERE" class="contact-btn btn-whatsapp" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+        
+        <!-- 2. Telegram -->
+        <a href="https://t.me/YOUR_TELEGRAM_USERNAME" class="contact-btn btn-telegram" target="_blank">
+            <i class="fa-brands fa-telegram"></i> Message on Telegram
+        </a>
+        
+        <!-- 3. Email -->
+        <a href="mailto:your.email@gmail.com" class="contact-btn btn-email">
+            <i class="fa-solid fa-envelope"></i> Email Support
+        </a>
+        
+        <!-- 4. Instagram -->
+        <a href="https://instagram.com/YOUR_INSTAGRAM_USERNAME" class="contact-btn btn-instagram" target="_blank">
+            <i class="fa-brands fa-instagram"></i> DM on Instagram
+        </a>
+        
+        <!-- 5. Facebook -->
+        <a href="https://facebook.com/YOUR_PAGE_LINK" class="contact-btn btn-facebook" target="_blank">
+            <i class="fa-brands fa-facebook"></i> Connect on Facebook
+        </a>
+    </div>
+
+    <div class="order-note">
+        <strong>💡 Important Note:</strong> Jab aap hume message karein, toh kripya apna <b>12-digit UTR No.</b> ya payment ka screenshot zaroor bhejein taaki hum aapka order jaldi verify kar sakein.
+    </div>
+</div>
