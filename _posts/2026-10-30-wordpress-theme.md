@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "News Pro Theme"
+title: "WordPress Pro Theme"
 category: "Premium"
 image: "https://via.placeholder.com/800x400/1e1e1e/2ecc71?text=SarkariResult+Pro+Theme"
 preview_link: "https://buy-link-here.com"
