@@ -120,6 +120,16 @@
         .post-content { background: var(--post-bg); padding: 30px; border-radius: 12px; margin-top: 20px; line-height: 1.6; color: var(--text-color); }
         .post-content img { max-width: 100%; border-radius: 8px; margin: 15px 0; }
 
+        /* --- Post Action Bar (Preview & Share Buttons) --- */
+        .post-action-bar { display: flex; justify-content: space-between; align-items: center; margin: 15px 0 25px 0; flex-wrap: wrap; gap: 15px; }
+        .btn-preview-link { background: transparent; color: var(--logo-color); border: 2px solid var(--logo-color); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+        .btn-preview-link:hover { background: var(--logo-color); color: #ffffff; }
+        .share-container { display: flex; align-items: center; gap: 10px; }
+        .share-label { font-weight: 600; font-size: 14px; color: var(--text-color); }
+        .share-icons { display: flex; gap: 8px; }
+        .share-btn { width: 36px; height: 36px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-color); text-decoration: none; font-size: 15px; transition: all 0.2s ease; }
+        .share-btn:hover { background: var(--primary-color); color: #ffffff; border-color: var(--primary-color); transform: translateY(-2px); }
+
         /* --- Footer Styles --- */
         .site-footer { background-color: var(--footer-bg); border-top: 4px solid var(--footer-brand-blue); margin-top: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.3s; }
         .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 30px; padding: 50px 20px; }
@@ -151,6 +161,8 @@
         @media (max-width: 768px) {
             .footer-bottom { flex-direction: column; text-align: center; }
             .footer-links a { margin: 0 10px; }
+            .post-action-bar { flex-direction: column; align-items: stretch; }
+            .share-container { justify-content: space-between; }
         }
     </style>
 </head>
@@ -308,14 +320,12 @@
         const searchInput = document.getElementById('search-input');
         const searchResults = document.getElementById('search-results');
         
-        let searchData = []; // Isme JSON data store hoga
+        let searchData = [];
 
-        // Open Search Box & Fetch Data
         searchBtn.addEventListener('click', () => {
             searchOverlay.classList.toggle('active');
             if(searchOverlay.classList.contains('active')) {
                 searchInput.focus();
-                // Data tabhi fetch hoga jab pehli baar search open ho (fast loading ke liye)
                 if(searchData.length === 0) {
                     fetch('{{ "/search.json" | relative_url }}')
                         .then(response => response.json())
@@ -325,19 +335,17 @@
             }
         });
 
-        // Close Search Box
         closeSearchBtn.addEventListener('click', () => {
             searchOverlay.classList.remove('active');
             searchInput.value = '';
             searchResults.innerHTML = '';
         });
 
-        // Search Input Filter
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             searchResults.innerHTML = ''; 
             
-            if(query.length < 2) return; // 2 characters type hone ke baad hi search shuru hoga
+            if(query.length < 2) return;
 
             const filtered = searchData.filter(post => 
                 post.title.toLowerCase().includes(query) || 
@@ -367,7 +375,6 @@
         // --- Scroll To Top Logic ---
         const scrollBtn = document.getElementById("scrollToTopBtn");
         window.addEventListener("scroll", () => {
-            // Jab user 300px niche scroll karega tabhi button dikhega
             if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 scrollBtn.style.display = "flex";
             } else {
