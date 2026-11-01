@@ -111,7 +111,7 @@ layout: default
 </div>
 
 <!-- ==========================================
-     UPI CHECKOUT MODAL (With 02:00 Timer)
+     UPI CHECKOUT MODAL (With 01:00 Timer)
 =========================================== -->
 <div class="checkout-modal-overlay" id="checkout-modal">
     <div class="checkout-box">
@@ -170,6 +170,7 @@ layout: default
         document.getElementById("utr-section").style.display = "none";
         document.getElementById("pending").style.display = "none";
         document.getElementById("qrcode").style.display = "flex";
+        document.getElementById("loading").style.display = "none";
         document.getElementById("utr-input").value = "";
         
         if(checkInterval) clearInterval(checkInterval);
@@ -201,7 +202,7 @@ layout: default
         document.getElementById("utr-section").style.display = "block";
     }
 
-    function verifyPayment() {
+    async function verifyPayment() {
         const utr = document.getElementById("utr-input").value;
         const errorMsg = document.getElementById("error-text");
         const utrRegex = /^6\d{11}$/;
@@ -221,20 +222,29 @@ layout: default
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
         
-        // 🛠 FIX: Base64 link ko URL-safe banaya gaya hai taaki break na ho
         const safeFileLink = encodeURIComponent(encodedSecret);
-
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${safeFileLink}`;
 
-        fetch(createUrl).catch(e => console.log(e));
+        try {
+            // Server response aane ka wait karega, modal freeze nahi hoga
+            let response = await fetch(createUrl);
+            let result = await response.json();
 
-        setTimeout(() => {
+            if (result.status === "success") {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("pending").style.display = "block";
+                
+                startCountdown(60, utr);
+                checkPaymentStatus(utr);
+            } else {
+                throw new Error("Server error");
+            }
+        } catch (e) {
+            console.log("Error:", e);
             document.getElementById("loading").style.display = "none";
-            document.getElementById("pending").style.display = "block";
-            
-            startCountdown(60, utr);
-            checkPaymentStatus(utr);
-        }, 1500);
+            document.getElementById("utr-section").style.display = "block";
+            alert("Kuch gadbadi ho gayi! Kripya dobara koshish karein.");
+        }
     }
     
     function startCountdown(duration, utrValue) {
