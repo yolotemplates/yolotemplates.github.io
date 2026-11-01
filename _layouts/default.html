@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ site.name }} - {{ page.title }}</title>
+    <title>{{ page.title }} - {{ site.title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- CSS Variables for Light/Dark Mode Toggle --- */
+        /* --- CSS Variables for Light/Dark Mode --- */
         :root {
-            /* General & Navbar */
             --bg-color: #f4f7f6;
             --text-color: #333333;
             --nav-bg: #ffffff;
@@ -19,18 +18,9 @@
             --border-color: #eeeeee;
             --card-text: #2c3e50;
             --post-bg: #ffffff;
-
-            /* Footer */
-            --footer-bg: #f5f8fa;
-            --footer-text: #5a6a7e;
-            --footer-heading: #002e5b;
-            --footer-brand-blue: #005bb5;
-            --footer-line: #dce4ec;
-            --footer-bottom-text: #000000;
         }
 
         body.dark-mode {
-            /* General & Navbar */
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --nav-bg: #1e1e1e;
@@ -40,355 +30,150 @@
             --border-color: #333333;
             --card-text: #e0e0e0;
             --post-bg: #1e1e1e;
-
-            /* Footer */
-            --footer-bg: #141414;
-            --footer-text: #a0aab5;
-            --footer-heading: #ffffff;
-            --footer-brand-blue: #005bb5;
-            --footer-line: #333333;
-            --footer-bottom-text: #e0e0e0;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
 
         /* --- Navbar --- */
-        .navbar { background: var(--nav-bg); box-shadow: 0 4px 15px var(--nav-shadow); position: sticky; top: 0; z-index: 1000; transition: background 0.3s; }
+        .navbar { background: var(--nav-bg); box-shadow: 0 4px 15px var(--nav-shadow); position: sticky; top: 0; z-index: 1000; }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .nav-left { display: flex; align-items: center; gap: 40px; }
-        .logo-group { display: flex; align-items: center; gap: 15px; }
-        .hamburger { display: none; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
         .logo { font-size: 24px; font-weight: 700; color: var(--logo-color); text-decoration: none; }
         .logo span { color: var(--primary-color); }
-        .nav-center { display: flex; align-items: center; }
-        .nav-center a { text-decoration: none; color: var(--text-color); font-weight: 600; margin-right: 25px; transition: color 0.3s; }
-        .nav-center a:hover { color: var(--primary-color); }
-        .close-menu { display: none; }
-        .nav-right { display: flex; align-items: center; gap: 15px; }
-        .icon-btn { background: none; border: none; font-size: 20px; color: var(--text-color); cursor: pointer; transition: color 0.3s; }
-        .icon-btn:hover { color: var(--primary-color); }
+        .nav-center a { text-decoration: none; color: var(--text-color); font-weight: 600; margin-right: 25px; }
 
-        /* --- Search Dropdown UI --- */
-        .search-overlay { position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); box-shadow: 0 10px 15px var(--nav-shadow); padding: 20px 5%; z-index: 997; display: none; flex-direction: column; align-items: center; border-top: 1px solid var(--border-color); }
-        .search-overlay.active { display: flex; }
-        .search-container { width: 100%; max-width: 800px; display: flex; align-items: center; gap: 10px; }
-        #search-input { flex: 1; padding: 12px 20px; font-size: 16px; border: 2px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); outline: none; }
-        #search-input:focus { border-color: var(--primary-color); }
-        #close-search-btn { background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
-        
-        .search-results { width: 100%; max-width: 800px; margin-top: 15px; max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .search-item { display: flex; align-items: center; gap: 15px; padding: 10px; background: var(--card-bg); border-radius: 8px; text-decoration: none; color: var(--text-color); transition: background 0.2s; border: 1px solid var(--border-color); }
-        .search-item:hover { background: var(--bg-color); }
-        .search-item img { width: 50px; height: 50px; border-radius: 5px; object-fit: cover; }
-        .search-item-info { display: flex; flex-direction: column; }
-        .search-item-title { font-weight: bold; font-size: 16px; color: var(--text-color); }
-        .search-item-category { font-size: 12px; color: var(--primary-color); }
-
-        /* --- Mobile Slide Menu --- */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .overlay.active { display: block; opacity: 1; }
-
-        @media (max-width: 768px) {
-            .hamburger { display: block; }
-            .nav-left { gap: 0; }
-            .nav-center { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background: var(--nav-bg); flex-direction: column; align-items: flex-start; padding: 60px 20px 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.1); transition: left 0.3s ease; z-index: 999; }
-            .nav-center.active { left: 0; }
-            .nav-center a { margin: 15px 0; font-size: 18px; width: 100%; }
-            .close-menu { display: block; position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; color: var(--text-color); cursor: pointer; }
-        }
-
-        /* --- Homepage / Body Components --- */
+        /* --- Single Post Layout Container --- */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .section-title { text-align: center; margin-bottom: 30px; font-size: 28px; color: var(--logo-color); }
-        .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
-        .card { background: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px var(--nav-shadow); transition: transform 0.3s ease; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; }
-        .card-body { padding: 20px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
-        .card-body a { text-decoration: none; }
-        .theme-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: var(--card-text); transition: color 0.3s; }
-        .theme-title:hover { color: var(--primary-color); }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { text-decoration: none; padding: 10px 15px; border-radius: 8px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: 1; }
-        .btn-preview { background: #f1f3f5; color: #495057; }
-        .btn-preview:hover { background: #e2e6ea; color: #212529; }
-        .btn-download { background: var(--primary-color); color: #ffffff; }
-        .btn-download:hover { background: #2980b9; }
-        .view-more-container { text-align: center; margin-top: 40px; }
-        .btn-view-more { display: inline-flex; align-items: center; gap: 8px; background: var(--logo-color); color: var(--nav-bg); padding: 12px 30px; border-radius: 25px; text-decoration: none; font-weight: 600; }
-        .post-content { background: var(--post-bg); padding: 30px; border-radius: 12px; margin-top: 20px; line-height: 1.6; color: var(--text-color); }
-        .post-content img { max-width: 100%; border-radius: 8px; margin: 15px 0; }
+        .single-post-wrapper { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; }
+        
+        .post-main { 
+            flex: 1 1 65%; 
+            background: var(--post-bg); 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px var(--nav-shadow); 
+            border: 1px solid var(--border-color);
+        }
+        
+        .post-title { font-size: 32px; color: var(--logo-color); margin-bottom: 20px; font-weight: bold; }
+        .post-featured-image { width: 100%; max-height: 400px; border-radius: 8px; margin-bottom: 15px; object-fit: cover; border: 1px solid var(--border-color); }
+        
+        /* --- Preview Button & Share Bar (Image ke theek niche) --- */
+        .post-action-bar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin: 15px 0 25px 0; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
+        
+        /* Index page jaisa exact .btn-preview style */
+        .btn-post-preview { 
+            text-decoration: none; 
+            padding: 10px 20px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            font-size: 14px; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            background: #f1f3f5; 
+            color: #495057; 
+            border: 1px solid var(--border-color); 
+            transition: background 0.3s, color 0.3s; 
+        }
+        .btn-post-preview:hover { background: #e2e6ea; color: #212529; }
+        
+        body.dark-mode .btn-post-preview { background: #2a2a2a; color: #e0e0e0; border-color: #444444; }
+        body.dark-mode .btn-post-preview:hover { background: #333333; color: #ffffff; }
 
-        /* --- Post Action Bar (Preview & Share Buttons) --- */
-        .post-action-bar { display: flex; justify-content: space-between; align-items: center; margin: 15px 0 25px 0; flex-wrap: wrap; gap: 15px; }
-        .btn-preview-link { background: transparent; color: var(--logo-color); border: 2px solid var(--logo-color); padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
-        .btn-preview-link:hover { background: var(--logo-color); color: #ffffff; }
+        /* Right side Share Section */
         .share-container { display: flex; align-items: center; gap: 10px; }
         .share-label { font-weight: 600; font-size: 14px; color: var(--text-color); }
         .share-icons { display: flex; gap: 8px; }
-        .share-btn { width: 36px; height: 36px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-color); text-decoration: none; font-size: 15px; transition: all 0.2s ease; }
+        .share-btn { 
+            width: 36px; 
+            height: 36px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-color); 
+            text-decoration: none; 
+            font-size: 15px; 
+            transition: all 0.2s ease; 
+        }
         .share-btn:hover { background: var(--primary-color); color: #ffffff; border-color: var(--primary-color); transform: translateY(-2px); }
 
-        /* --- Footer Styles --- */
-        .site-footer { background-color: var(--footer-bg); border-top: 4px solid var(--footer-brand-blue); margin-top: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background-color 0.3s; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 30px; padding: 50px 20px; }
-        .footer-col { flex: 1; min-width: 220px; }
-        .footer-col h4 { color: var(--footer-heading); font-size: 16px; font-weight: 700; margin-bottom: 20px; position: relative; }
-        .footer-col h4::after { content: ''; display: block; width: 25px; height: 2px; background-color: var(--footer-brand-blue); margin-top: 8px; }
-        .footer-col ul { list-style: none; padding: 0; margin: 0; }
-        .footer-col ul li { margin-bottom: 15px; }
-        .footer-col ul li a { color: var(--footer-text); text-decoration: none; font-size: 14px; line-height: 1.6; transition: color 0.3s; display: block; }
-        .footer-col ul li a:hover { color: var(--footer-brand-blue); }
+        .post-body { font-size: 16px; line-height: 1.8; color: var(--text-color); }
         
-        .social-icons { display: flex; gap: 10px; margin-bottom: 30px; }
-        .social-icons a { display: inline-flex; justify-content: center; align-items: center; width: 38px; height: 38px; background-color: var(--footer-brand-blue); color: #ffffff; border-radius: 50%; text-decoration: none; font-size: 16px; transition: transform 0.3s, background 0.3s; }
-        .social-icons a:hover { transform: translateY(-3px); background-color: #004488; }
-        
-        .join-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-        .join-btn { display: inline-flex; align-items: center; gap: 8px; background-color: var(--footer-brand-blue); color: #ffffff; padding: 8px 18px; border-radius: 25px; text-decoration: none; font-size: 14px; font-weight: 600; transition: background 0.3s; }
-        .join-btn:hover { background-color: #004488; }
-        
-        .footer-bottom-wrapper { border-top: 1px solid var(--footer-line); }
-        .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 20px; flex-wrap: wrap; gap: 15px; }
-        .copyright { color: var(--footer-text); font-size: 13px; }
-        .footer-links a { color: var(--footer-bottom-text); text-decoration: none; font-size: 13px; font-weight: 700; margin-left: 20px; }
-        .footer-links a:hover { color: var(--footer-brand-blue); }
-        
-        #scrollToTopBtn { position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; background-color: var(--footer-brand-blue); color: white; border: none; border-radius: 50%; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 999; transition: background 0.3s, transform 0.3s; }
-        #scrollToTopBtn:hover { background-color: #004488; transform: scale(1.1); }
-        
+        /* Sidebar (agar ho) */
+        .post-sidebar { flex: 1 1 30%; }
+
         @media (max-width: 768px) {
-            .footer-bottom { flex-direction: column; text-align: center; }
-            .footer-links a { margin: 0 10px; }
+            .single-post-wrapper { flex-direction: column; }
+            .post-main, .post-sidebar { flex: 1 1 100%; }
             .post-action-bar { flex-direction: column; align-items: stretch; }
             .share-container { justify-content: space-between; }
         }
     </style>
 </head>
 <body>
-    
+
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-left">
-                <div class="logo-group">
-                    <button class="hamburger" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>
-                    <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
-                </div>
-                
-                <div class="nav-center" id="nav-menu">
-                    <button class="close-menu" id="close-btn"><i class="fa-solid fa-xmark"></i></button>
-                    <a href="{{ '/' | relative_url }}">Home</a>
-                    <a href="{{ '/themes.html' | relative_url }}">All Themes</a>
-                    <a href="#">Blogger Templates</a>
-                </div>
+            <a href="{{ '/' | relative_url }}" class="logo">Yolo<span>Templates</span></a>
+            <div class="nav-center">
+                <a href="{{ '/' | relative_url }}">Home</a>
+                <a href="{{ '/themes.html' | relative_url }}">All Themes</a>
             </div>
-            
-            <div class="nav-right">
-                <button class="icon-btn" id="dark-mode-btn"><i class="fa-solid fa-moon"></i></button>
-                <button class="icon-btn search-btn" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-        </div>
-
-        <!-- Working Search Box Overlay -->
-        <div class="search-overlay" id="search-overlay">
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search themes (e.g., JobPortal)...">
-                <button id="close-search-btn"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="search-results" id="search-results"></div>
         </div>
     </nav>
-    
-    <div class="overlay" id="menu-overlay"></div>
 
     <div class="container">
-        {{ content }}
+        <div class="single-post-wrapper">
+            
+            <!-- Left Main Content Area -->
+            <div class="post-main">
+                <h1 class="post-title">{{ page.title }}</h1>
+                
+                {% if page.image %}
+                    <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image">
+                {% endif %}
+
+                <!-- 🔥 IMAGE KE THEEK NICHE: Preview Button (Left) & Share Icons (Right) -->
+                <div class="post-action-bar">
+                    <a href="{{ page.preview_link }}" class="btn-post-preview" target="_blank">
+                        <i class="fa-solid fa-eye"></i> Preview Link
+                    </a>
+                    
+                    <div class="share-container">
+                        <span class="share-label">Share on:</span>
+                        <div class="share-icons">
+                            <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this theme: {{ site.url }}{{ page.url }}" class="share-btn" title="Share More"><i class="fa-solid fa-share-nodes"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post Body Content -->
+                <div class="post-body">
+                    {{ content }}
+                </div>
+            </div>
+
+            <!-- Right Sidebar Area (Agar ho) -->
+            <div class="post-sidebar">
+                <!-- Sidebar pricing card ya checkout modal yahan aayega -->
+            </div>
+
+        </div>
     </div>
 
-    <!-- Footer Section -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            
-            <!-- Column 1 -->
-            <div class="footer-col">
-                <h4>Our Offerings</h4>
-                <ul>
-                    <li><a href="#">UP Board Class 10th & 12th Time Table 2027</a></li>
-                    <li><a href="#">UP Home Guard Final Result 2026 Out – Download Merit List PDF</a></li>
-                    <li><a href="#">MP Police Constable Recruitment 2026 (7500 Posts) – Apply Online</a></li>
-                    <li><a href="#">SSC CGL Exam Date 2026 Out – Tier 1 Exam Schedule, Admit Card & Exam Pattern</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 2 -->
-            <div class="footer-col">
-                <h4>Support & Updates</h4>
-                <ul>
-                    <li><a href="#">Board Exam 2027</a></li>
-                    <li><a href="#">UP Board Exam Date 2027</a></li>
-                    <li><a href="#">12th exam 2027</a></li>
-                    <li><a href="#">10th exam 2027</a></li>
-                    <li><a href="#">12th board Exam 2026-2027</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 3 -->
-            <div class="footer-col">
-                <h4>Our Company</h4>
-                <ul>
-                    <li><a href="#">Admit Card</a></li>
-                    <li><a href="#">Latest Jobs</a></li>
-                    <li><a href="#">Results</a></li>
-                    <li><a href="#">Answer Key</a></li>
-                    <li><a href="#">Syllabus / Documents</a></li>
-                    <li><a href="#">Admission</a></li>
-                </ul>
-            </div>
-
-            <!-- Column 4 -->
-            <div class="footer-col">
-                <h4>Connect with us</h4>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                </div>
-                
-                <h4>Join Us</h4>
-                <div class="join-buttons">
-                    <a href="#" class="join-btn"><i class="fa-brands fa-telegram"></i> Telegram</a>
-                    <a href="#" class="join-btn"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-                </div>
-            </div>
-            
-        </div>
-
-        <div class="footer-bottom-wrapper">
-            <div class="footer-bottom">
-                <div class="copyright">
-                    © 2026 YoloTemplates. All rights reserved.
-                </div>
-                <div class="footer-links">
-                    <a href="#">Contact</a>
-                    <a href="#">Terms & Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" title="Go to top"><i class="fa-solid fa-angle-up"></i></button>
-
-    <script>
-        // --- 1. Mobile Menu Logic ---
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const navMenu = document.getElementById('nav-menu');
-        const overlay = document.getElementById('menu-overlay');
-
-        hamburgerBtn.addEventListener('click', () => { navMenu.classList.add('active'); overlay.classList.add('active'); });
-        closeBtn.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-        function closeMenu() { navMenu.classList.remove('active'); overlay.classList.remove('active'); }
-
-        // --- 2. Dark Mode Logic ---
-        const darkModeBtn = document.getElementById('dark-mode-btn');
-        const body = document.body;
-        const icon = darkModeBtn.querySelector('i');
-
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-            icon.classList.replace('fa-moon', 'fa-sun');
-        }
-
-        darkModeBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); icon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                localStorage.setItem('theme', 'light'); icon.classList.replace('fa-sun', 'fa-moon');
-            }
-        });
-
-        // --- 3. Working Search Functionality ---
-        const searchBtn = document.getElementById('search-btn');
-        const searchOverlay = document.getElementById('search-overlay');
-        const closeSearchBtn = document.getElementById('close-search-btn');
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-        
-        let searchData = [];
-
-        searchBtn.addEventListener('click', () => {
-            searchOverlay.classList.toggle('active');
-            if(searchOverlay.classList.contains('active')) {
-                searchInput.focus();
-                if(searchData.length === 0) {
-                    fetch('{{ "/search.json" | relative_url }}')
-                        .then(response => response.json())
-                        .then(data => searchData = data)
-                        .catch(err => console.error("Search data load fail ho gaya:", err));
-                }
-            }
-        });
-
-        closeSearchBtn.addEventListener('click', () => {
-            searchOverlay.classList.remove('active');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-        });
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            searchResults.innerHTML = ''; 
-            
-            if(query.length < 2) return;
-
-            const filtered = searchData.filter(post => 
-                post.title.toLowerCase().includes(query) || 
-                post.category.toLowerCase().includes(query)
-            );
-
-            if(filtered.length === 0) {
-                searchResults.innerHTML = '<p style="padding:10px;">Koi theme nahi mili.</p>';
-                return;
-            }
-
-            filtered.forEach(post => {
-                const item = document.createElement('a');
-                item.href = post.url;
-                item.className = 'search-item';
-                item.innerHTML = `
-                    <img src="${post.image}" alt="${post.title}">
-                    <div class="search-item-info">
-                        <span class="search-item-title">${post.title}</span>
-                        <span class="search-item-category">${post.category || 'Theme'}</span>
-                    </div>
-                `;
-                searchResults.appendChild(item);
-            });
-        });
-
-        // --- Scroll To Top Logic ---
-        const scrollBtn = document.getElementById("scrollToTopBtn");
-        window.addEventListener("scroll", () => {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                scrollBtn.style.display = "flex";
-            } else {
-                scrollBtn.style.display = "none";
-            }
-        });
-
-        scrollBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-        
-    </script>
 </body>
 </html>
