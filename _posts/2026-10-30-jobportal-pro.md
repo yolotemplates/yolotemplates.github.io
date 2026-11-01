@@ -5,7 +5,7 @@ category: "Premium"
 image: "https://via.placeholder.com/800x400/ececec/999999?text=SarkariResult"
 preview_link: "https://buy-link-here.com"
 download_link: "https://free-download-link.com" 
-premium_download_link: "https://yolotemplates.github.io/hidden-files/sarkari-pro.zip"
+premium_download_link: "https://yolotemplates.github.io/hidden-files/SarkariResult-Pro-Theme.zip"
 free_price: "Free"
 premium_price: "Rs 499.00"
 ---
