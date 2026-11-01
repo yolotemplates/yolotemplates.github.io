@@ -145,14 +145,15 @@ layout: default
 </div>
 
 <script>
-    // 👇 Yahan apna wahi EXACT link dalein jo aapne abhi browser me test kiya tha
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyx2qWAuPGERq8KRPO_u9UbqoNSZf3cB8hsbSMq2pQkLtL1009eE8nZlOpxEVo1Hsqyng/exec";
-    // Jekyll se asli link lena aur use encrypt (hide) kar dena
-    const rawSecretLink = "{{ page.premium_download_link }}"; // Markdown me is variable me link rakhiyega
-    const encodedSecret = btoa(rawSecretLink);
     
+    // Price Calculation
     const rawPrice = "{{ page.premium_price }}"; 
     const numericPrice = rawPrice.replace(/[^0-9.]/g, '') || "15"; 
+
+    // Jekyll se asli link lena aur use encrypt (hide) kar dena
+    const rawSecretLink = "{{ page.premium_download_link }}"; 
+    const encodedSecret = btoa(rawSecretLink); 
 
     function openCheckoutModal() {
         document.getElementById("checkout-modal").style.display = "flex";
@@ -208,9 +209,9 @@ layout: default
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
 
+        // Encrypted link (file=encodedSecret) add kar diya gaya hai
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${encodedSecret}`;
 
-        // 1. Data Save Karna
         fetch(createUrl).catch(e => console.log(e));
 
         // 2. Turant Loading se Pending screen par aana
@@ -234,25 +235,31 @@ layout: default
                     if (data.status === "Success" || data.status === "Approved") {
                         clearInterval(checkInterval); // Check karna band karo
                         
-                        // Green Tick Dikhao
+                        // Green Tick, Secure Download Button aur Contact Link
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(46, 204, 113, 0.1)";
                         pendingDiv.style.borderColor = "#2ecc71";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #2ecc71;">✅ Payment Successful!</h3>
                             <p style="color: #e0e0e0;">Your UTR <strong>${utrValue}</strong> has been verified.</p>
-                            <a href="{{ page.download_link }}" target="_blank" style="display: block; background: #2ecc71; color: white; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 15px;">📥 Download Theme Now</a>
+                            <a href="${scriptUrl}?action=download&utr=${utrValue}" target="_blank" style="display: block; background: #2ecc71; color: white; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 15px;">📥 Download Theme Now</a>
+                            <p style="margin-top: 15px; font-size: 13px; text-align: center;">
+                                <a href="/contact.html" style="color: #3498db; text-decoration: underline;">Need help? Contact Support</a>
+                            </p>
                         `;
                     } else if (data.status === "Rejected") {
                         clearInterval(checkInterval); 
                         
-                        // Red Cross Dikhao
+                        // Red Cross aur Contact Link
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
                         pendingDiv.style.borderColor = "#e74c3c";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #e74c3c;">❌ Payment Rejected</h3>
                             <p style="color: #e0e0e0;">We could not verify your payment for UTR <strong>${utrValue}</strong>.</p>
+                            <p style="margin-top: 15px; font-size: 13px; text-align: center;">
+                                <a href="/contact.html" style="color: #3498db; text-decoration: underline;">Contact Support</a>
+                            </p>
                         `;
                     }
                 })
