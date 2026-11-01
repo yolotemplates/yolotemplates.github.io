@@ -147,6 +147,9 @@ layout: default
 <script>
     // 👇 Yahan apna wahi EXACT link dalein jo aapne abhi browser me test kiya tha
     const scriptUrl = "https://script.google.com/macros/s/AKfycbyx2qWAuPGERq8KRPO_u9UbqoNSZf3cB8hsbSMq2pQkLtL1009eE8nZlOpxEVo1Hsqyng/exec";
+    // Jekyll se asli link lena aur use encrypt (hide) kar dena
+    const rawSecretLink = "{{ page.premium_download_link }}"; // Markdown me is variable me link rakhiyega
+    const encodedSecret = btoa(rawSecretLink);
     
     const rawPrice = "{{ page.premium_price }}"; 
     const numericPrice = rawPrice.replace(/[^0-9.]/g, '') || "15"; 
@@ -205,7 +208,7 @@ layout: default
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
 
-        const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}`;
+        const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${encodedSecret}`;
 
         // 1. Data Save Karna
         fetch(createUrl).catch(e => console.log(e));
