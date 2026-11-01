@@ -10,6 +10,19 @@ free_price: "Free"
 premium_price: "Rs 499.00"
 ---
 
+<div class="post-action-bar">
+    <a href="{{ page.preview_link }}" class="btn-preview-link" target="_blank"><i class="fa-solid fa-eye"></i> Preview Link</a>
+    <div class="share-container">
+        <span class="share-label">Share on:</span>
+        <div class="share-icons">
+            <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this theme: {{ site.url }}{{ page.url }}" class="share-btn" title="Share More"><i class="fa-solid fa-share-nodes"></i></a>
+        </div>
+    </div>
+</div>
+
 Are you planning to build a lightning-fast, highly professional government job recruitment portal or educational updates website similar to **SarkariResult**? Look no further! The **SarkariResult Pro Theme** is meticulously crafted to meet all the demands of modern web publishers, recruitment bloggers, and public sector job aggregators. 
 
 In this comprehensive guide, we will explore why this theme stands out from the competition, its powerful built-in features, and how it can help you scale your website traffic and revenue.
