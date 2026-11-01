@@ -161,15 +161,12 @@ layout: default
     let countdownInterval;
 
     function openCheckoutModal() {
-        // Purane saare running intervals ko turant roko taaki freeze na ho
         if(checkInterval) clearInterval(checkInterval);
         if(countdownInterval) clearInterval(countdownInterval);
 
-        // Modal kholo
         document.getElementById("checkout-modal").style.display = "flex";
         document.getElementById("cart-total").innerText = numericPrice;
         
-        // Sabhi sections ko unke original/fresh state par reset karo
         document.getElementById("paid-action").style.display = "block";
         document.getElementById("utr-section").style.display = "none";
         document.getElementById("pending").style.display = "none";
@@ -178,7 +175,6 @@ layout: default
         document.getElementById("utr-input").value = "";
         document.getElementById("error-text").style.display = "none";
         
-        // Pending box ko original style par wapas lao
         const pendingDiv = document.getElementById("pending");
         pendingDiv.style.background = "var(--bg-color)";
         pendingDiv.style.borderColor = "#f39c12";
@@ -233,18 +229,17 @@ layout: default
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${safeFileLink}`;
 
         try {
-            let response = await fetch(createUrl);
-            let result = await response.json();
+            // mode: 'no-cors' use karne se CORS error nahi aayega aur modal freeze nahi hoga
+            await fetch(createUrl, { method: 'GET', mode: 'no-cors' });
 
-            if (result.status === "success") {
+            setTimeout(() => {
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("pending").style.display = "block";
                 
                 startCountdown(60, utr);
                 checkPaymentStatus(utr);
-            } else {
-                throw new Error("Server error");
-            }
+            }, 1000);
+
         } catch (e) {
             console.log("Error:", e);
             document.getElementById("loading").style.display = "none";
@@ -308,7 +303,7 @@ layout: default
                         clearInterval(countdownInterval); 
                         
                         const pendingDiv = document.getElementById("pending");
-                        pendingDiv.style.background = "rgba(231, 76, 60, susp)";
+                        pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
                         pendingDiv.style.borderColor = "#e74c3c";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #e74c3c;">❌ Payment Rejected</h3>
