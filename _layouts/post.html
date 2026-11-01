@@ -104,14 +104,14 @@ layout: default
                 <li><i class="fa-solid fa-check"></i> Remove Footer Credits</li>
                 <li><i class="fa-solid fa-check"></i> Lifetime Template Updates</li>
             </ul>
-            <!-- Buy Now Button (Triggers Popup) -->
+            <!-- Buy Now Button -->
             <button class="btn-buy btn-premium" onclick="openCheckoutModal()">💳 Buy Now</button>
         </div>
     </div>
 </div>
 
 <!-- ==========================================
-     UPI CHECKOUT MODAL (With 01:00 Timer)
+     UPI CHECKOUT MODAL
 =========================================== -->
 <div class="checkout-modal-overlay" id="checkout-modal">
     <div class="checkout-box">
@@ -149,7 +149,6 @@ layout: default
 </div>
 
 <script>
-    // Aapka Latest API Link
     const scriptUrl = "https://script.google.com/macros/s/AKfycbxF9R6-qExtpIfPrxEmFJZlHRV6fbyRTcgR1fBpf5B5jOS_mI7RG4nqKRJjTODFfP-s6g/exec";
     
     const rawPrice = "{{ page.premium_price }}"; 
@@ -158,24 +157,32 @@ layout: default
     const rawSecretLink = "{{ page.premium_download_link }}"; 
     const encodedSecret = btoa(rawSecretLink); 
     
-    // Timers
     let checkInterval;
     let countdownInterval;
 
     function openCheckoutModal() {
+        // Purane saare running intervals ko turant roko taaki freeze na ho
+        if(checkInterval) clearInterval(checkInterval);
+        if(countdownInterval) clearInterval(countdownInterval);
+
+        // Modal kholo
         document.getElementById("checkout-modal").style.display = "flex";
         document.getElementById("cart-total").innerText = numericPrice;
         
+        // Sabhi sections ko unke original/fresh state par reset karo
         document.getElementById("paid-action").style.display = "block";
         document.getElementById("utr-section").style.display = "none";
         document.getElementById("pending").style.display = "none";
-        document.getElementById("qrcode").style.display = "flex";
         document.getElementById("loading").style.display = "none";
+        document.getElementById("qrcode").style.display = "flex";
         document.getElementById("utr-input").value = "";
+        document.getElementById("error-text").style.display = "none";
         
-        if(checkInterval) clearInterval(checkInterval);
-        if(countdownInterval) clearInterval(countdownInterval);
-        
+        // Pending box ko original style par wapas lao
+        const pendingDiv = document.getElementById("pending");
+        pendingDiv.style.background = "var(--bg-color)";
+        pendingDiv.style.borderColor = "#f39c12";
+
         generateQR();
     }
 
@@ -226,7 +233,6 @@ layout: default
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${safeFileLink}`;
 
         try {
-            // Server response aane ka wait karega, modal freeze nahi hoga
             let response = await fetch(createUrl);
             let result = await response.json();
 
@@ -250,10 +256,7 @@ layout: default
     function startCountdown(duration, utrValue) {
         let timer = duration;
         const timerDisplay = document.getElementById("timer-display");
-        
         const pendingDiv = document.getElementById("pending");
-        pendingDiv.style.background = "var(--bg-color)";
-        pendingDiv.style.borderColor = "#f39c12";
         
         countdownInterval = setInterval(function () {
             let minutes = parseInt(timer / 60, 10);
@@ -305,7 +308,7 @@ layout: default
                         clearInterval(countdownInterval); 
                         
                         const pendingDiv = document.getElementById("pending");
-                        pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
+                        pendingDiv.style.background = "rgba(231, 76, 60, susp)";
                         pendingDiv.style.borderColor = "#e74c3c";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #e74c3c;">❌ Payment Rejected</h3>
