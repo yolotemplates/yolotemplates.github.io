@@ -241,7 +241,7 @@ layout: default
     // Auto-check logic (Polling)
     function checkPaymentStatus(utrValue) {
         const checkInterval = setInterval(() => {
-            const checkUrl = `${scriptUrl}?action=check&utr=${utrValue}`;
+            const checkUrl = `${scriptUrl}?action=check&utr=${utrValue}&t=${new Date().getTime()}`;
             
             fetch(checkUrl)
                 .then(response => response.json())
