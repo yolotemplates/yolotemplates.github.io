@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SarkariResult Pro Theme – The Ultimate Government Job & Recruitment Portal Theme for WordPress & Bloggers"
+title: "SarkariResult Pro"
 category: "Premium"
 image: "https://via.placeholder.com/800x400/1e1e1e/2ecc71?text=SarkariResult+Pro+Theme"
 preview_link: "https://buy-link-here.com"
