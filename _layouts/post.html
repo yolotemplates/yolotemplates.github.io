@@ -136,21 +136,21 @@ layout: default
 
         <div id="loading" class="loader">⏳ Submitting details...</div>
         
-        <!-- YAHAN NAYA TIMER ADD KIYA GAYA HAI 👇 -->
+        <!-- Timer Section -->
         <div id="pending" class="pending-msg">
             <h3 style="margin-top: 0; color: #f39c12;">⏳ Verifying Payment</h3>
             
-            <div id="timer-display" style="font-size: 38px; font-weight: bold; color: #f39c12; margin: 15px 0; font-family: monospace; letter-spacing: 2px;">01:00</div>
+            <div id="timer-display" style="font-size: 38px; font-weight: bold; color: #f39c12; margin: 15px 0; font-family: monospace; letter-spacing: 2px;">02:00</div>
             
-            <p style="color: var(--text-color);">UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> checking...</p>
-            <p style="font-size: 13px; color: var(--text-color); opacity: 0.7;">Please close or refresh this page.</p>
+            <p style="color: var(--text-color);">UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> check ho raha hai...</p>
+            <p style="font-size: 13px; color: var(--text-color); opacity: 0.7;">Kripya page ko close ya refresh na karein.</p>
         </div>
     </div>
 </div>
 
 <script>
     // Aapka Latest API Link
-    const scriptUrl = "https://script.google.com/macros/s/AKfycbxF9R6-qExtpIfPrxEmFJZlHRV6fbyRTcgR1fBpf5B5jOS_mI7RG4nqKRJjTODFfP-s6g/exec";
+    const scriptUrl = "https://script.google.com/macros/s/AKfycbxF9R6-qExtpIfPrxEmFJZlHRV6fbyRTcgR1fBpf5B5jOS_ml7RG4nqKRJjTODFfP-s6g/exec";
     
     const rawPrice = "{{ page.premium_price }}"; 
     const numericPrice = rawPrice.replace(/[^0-9.]/g, '') || "15"; 
@@ -158,7 +158,7 @@ layout: default
     const rawSecretLink = "{{ page.premium_download_link }}"; 
     const encodedSecret = btoa(rawSecretLink); 
     
-    // Naye Timer ke variables
+    // Timers
     let checkInterval;
     let countdownInterval;
 
@@ -172,7 +172,6 @@ layout: default
         document.getElementById("qrcode").style.display = "flex";
         document.getElementById("utr-input").value = "";
         
-        // Modal khulte hi purane timers clear kar dein
         if(checkInterval) clearInterval(checkInterval);
         if(countdownInterval) clearInterval(countdownInterval);
         
@@ -221,7 +220,11 @@ layout: default
         const themeName = encodeURIComponent("{{ page.title }}");
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
-        const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${encodedSecret}`;
+        
+        // 🛠 FIX: Base64 link ko URL-safe banaya gaya hai taaki break na ho
+        const safeFileLink = encodeURIComponent(encodedSecret);
+
+        const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${safeFileLink}`;
 
         fetch(createUrl).catch(e => console.log(e));
 
@@ -229,18 +232,15 @@ layout: default
             document.getElementById("loading").style.display = "none";
             document.getElementById("pending").style.display = "block";
             
-            // 2 Minute ka Timer aur Background Check dono shuru karein
-            startCountdown(60, utr);
+            startCountdown(120, utr);
             checkPaymentStatus(utr);
         }, 1500);
     }
     
-    // NAYA FUNCTION: 2 Minute Countdown ke liye
     function startCountdown(duration, utrValue) {
         let timer = duration;
         const timerDisplay = document.getElementById("timer-display");
         
-        // Basic design reset (agar koi purana style bacha ho)
         const pendingDiv = document.getElementById("pending");
         pendingDiv.style.background = "var(--bg-color)";
         pendingDiv.style.borderColor = "#f39c12";
@@ -255,15 +255,14 @@ layout: default
             timerDisplay.textContent = minutes + ":" + seconds;
 
             if (--timer < 0) {
-                // Time Over hone par
                 clearInterval(countdownInterval);
-                clearInterval(checkInterval); // Polling band karein
+                clearInterval(checkInterval); 
                 
                 pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
                 pendingDiv.style.borderColor = "#e74c3c";
                 pendingDiv.innerHTML = `
                     <h3 style="margin-top: 0; color: #e74c3c;">⏰ Time Out!</h3>
-                    <p style="color: var(--text-color);">Don't worry. If you have paid successfully, then share details on below social media.</p>
+                    <p style="color: var(--text-color);">Aapki payment manual verify nahi ho paayi ya samay lag raha hai.</p>
                     <p style="margin-top: 20px; text-align: center;">
                         <a href="/contact.html" style="display: inline-block; width: 100%; background: #3498db; color: white; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: bold; box-sizing: border-box;">📩 Contact Support Now</a>
                     </p>
@@ -281,7 +280,7 @@ layout: default
                 .then(data => {
                     if (data.status === "Success" || data.status === "Approved") {
                         clearInterval(checkInterval); 
-                        clearInterval(countdownInterval); // Success hone par Timer rok dein
+                        clearInterval(countdownInterval); 
                         
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(46, 204, 113, 0.1)";
@@ -293,7 +292,7 @@ layout: default
                         `;
                     } else if (data.status === "Rejected") {
                         clearInterval(checkInterval); 
-                        clearInterval(countdownInterval); // Reject hone par Timer rok dein
+                        clearInterval(countdownInterval); 
                         
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
