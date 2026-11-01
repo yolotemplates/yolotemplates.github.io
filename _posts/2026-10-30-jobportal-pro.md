@@ -7,7 +7,7 @@ preview_link: "https://buy-link-here.com"
 download_link: "https://free-download-link.com" 
 premium_download_link: "https://yolotemplates.github.io/hidden-files/sarkari-pro.zip"
 free_price: "Free"
-premium_price: "Rs. 499.00"
+premium_price: "Rs 499.00"
 ---
 
 JobPortal Pro Theme ki details yahan aayengi...
