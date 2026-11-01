@@ -140,7 +140,7 @@ layout: default
         <div id="pending" class="pending-msg">
             <h3 style="margin-top: 0; color: #f39c12;">⏳ Verifying Payment</h3>
             
-            <div id="timer-display" style="font-size: 38px; font-weight: bold; color: #f39c12; margin: 15px 0; font-family: monospace; letter-spacing: 2px;">02:00</div>
+            <div id="timer-display" style="font-size: 38px; font-weight: bold; color: #f39c12; margin: 15px 0; font-family: monospace; letter-spacing: 2px;">01:00</div>
             
             <p style="color: var(--text-color);">UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> check ho raha hai...</p>
             <p style="font-size: 13px; color: var(--text-color); opacity: 0.7;">Kripya page ko close ya refresh na karein.</p>
@@ -232,7 +232,7 @@ layout: default
             document.getElementById("loading").style.display = "none";
             document.getElementById("pending").style.display = "block";
             
-            startCountdown(120, utr);
+            startCountdown(60, utr);
             checkPaymentStatus(utr);
         }, 1500);
     }
