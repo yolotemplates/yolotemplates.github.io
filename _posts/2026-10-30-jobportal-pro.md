@@ -4,9 +4,10 @@ title: "SarkariResult Pro Theme"
 category: "Premium"
 image: "https://via.placeholder.com/800x400/ececec/999999?text=SarkariResult"
 preview_link: "https://buy-link-here.com"
-download_link: "https://free-download-link.com"
-free_price: "$0.00"
-premium_price: "$5.00"
+download_link: "https://free-download-link.com" 
+premium_download_link: "https://yolotemplates.github.io/hidden-files/sarkari-pro.zip"
+free_price: "Free"
+premium_price: "Rs. 499.00"
 ---
 
 JobPortal Pro Theme ki details yahan aayengi...
