@@ -167,6 +167,7 @@ layout: default
         document.getElementById("checkout-modal").style.display = "flex";
         document.getElementById("cart-total").innerText = numericPrice;
         
+        // Forcefully saare elements ko fresh state par set karo
         document.getElementById("paid-action").style.display = "block";
         document.getElementById("utr-section").style.display = "none";
         document.getElementById("pending").style.display = "none";
@@ -178,6 +179,13 @@ layout: default
         const pendingDiv = document.getElementById("pending");
         pendingDiv.style.background = "var(--bg-color)";
         pendingDiv.style.borderColor = "#f39c12";
+        // Pending div ke andar ka HTML bhi original state par laao agar timeout/success hua ho
+        pendingDiv.innerHTML = `
+            <h3 style="margin-top: 0; color: #f39c12;">⏳ Verifying Payment</h3>
+            <div id="timer-display" style="font-size: 38px; font-weight: bold; color: #f39c12; margin: 15px 0; font-family: monospace; letter-spacing: 2px;">01:00</div>
+            <p style="color: var(--text-color);">UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> check ho raha hai...</p>
+            <p style="font-size: 13px; color: var(--text-color); opacity: 0.7;">Kripya page ko close ya refresh na karein.</p>
+        `;
 
         generateQR();
     }
@@ -229,22 +237,22 @@ layout: default
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${safeFileLink}`;
 
         try {
-            // mode: 'no-cors' use karne se CORS error nahi aayega aur modal freeze nahi hoga
-            await fetch(createUrl, { method: 'GET', mode: 'no-cors' });
+            // Background call bhejo (no-cors se block nahi hoga)
+            fetch(createUrl, { method: 'GET', mode: 'no-cors' }).catch(e => {});
 
+            // Safety timeout: 1.2 second ke andar loader 100% hatega hi hatega
             setTimeout(() => {
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("pending").style.display = "block";
                 
                 startCountdown(60, utr);
                 checkPaymentStatus(utr);
-            }, 1000);
+            }, 1200);
 
         } catch (e) {
             console.log("Error:", e);
             document.getElementById("loading").style.display = "none";
             document.getElementById("utr-section").style.display = "block";
-            alert("Kuch gadbadi ho gayi! Kripya dobara koshish karein.");
         }
     }
     
@@ -260,7 +268,9 @@ layout: default
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            timerDisplay.textContent = minutes + ":" + seconds;
+            if (timerDisplay) {
+                timerDisplay.textContent = minutes + ":" + seconds;
+            }
 
             if (--timer < 0) {
                 clearInterval(countdownInterval);
