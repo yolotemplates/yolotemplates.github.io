@@ -116,19 +116,21 @@ layout: default
 <div class="checkout-modal-overlay" id="checkout-modal">
     <div class="checkout-box">
         <button class="close-modal" onclick="closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
-        <h2 style="text-align: center; margin-top: 0; color: #ffffff;">Order Checkout</h2>
         
-        <p style="text-align: center; font-size: 18px;">Total Amount: <strong style="color: #3498db;">₹<span id="cart-total"></span></strong></p>
+        <!-- Yahan hardcoded color hata kar theme variables lagaye gaye hain -->
+        <h2 style="text-align: center; margin-top: 0; color: var(--logo-color);">Order Checkout</h2>
+        
+        <p style="text-align: center; font-size: 18px; color: var(--text-color);">Total Amount: <strong style="color: #3498db;">₹<span id="cart-total"></span></strong></p>
         
         <div id="qrcode"></div>
 
         <div id="paid-action">
-            <p style="font-size: 14px; text-align: center; margin-bottom: 15px; color: #e0e0e0;">Scan QR with Paytm, GPay, or PhonePe.</p>
+            <p style="font-size: 14px; text-align: center; margin-bottom: 15px; color: var(--text-color); opacity: 0.9;">Scan QR with Paytm, GPay, or PhonePe.</p>
             <button class="btn-pay" onclick="showUtrField()">I Have Paid</button>
         </div>
 
         <div id="utr-section">
-            <p style="font-size: 14px; text-align: center; color: #e0e0e0;">Enter the exact 12-digit UTR/Reference No. below:</p>
+            <p style="font-size: 14px; text-align: center; color: var(--text-color); opacity: 0.9;">Enter the exact 12-digit UTR/Reference No. below:</p>
             <input type="text" id="utr-input" class="utr-input-field" placeholder="e.g., 612345678901" maxlength="12">
             <div id="error-text" class="error-msg">❌ Invalid UTR! Must be 12 digits starting with 6.</div>
             <button class="btn-submit" onclick="verifyPayment()">Submit UTR</button>
@@ -138,14 +140,14 @@ layout: default
         
         <div id="pending" class="pending-msg">
             <h3 style="margin-top: 0; color: #f39c12;">⏳ Verification Pending</h3>
-            <p style="color: #e0e0e0;">Your payment UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> has been sent.</p>
-            <p style="font-size: 13px; color: #aaaaaa;">Please allow some time for manual verification. Your theme will be delivered to your email shortly.</p>
+            <p style="color: var(--text-color);">Your payment UTR <strong style="color: #3498db;"><span id="display-utr"></span></strong> has been sent.</p>
+            <p style="font-size: 13px; color: var(--text-color); opacity: 0.7;">Please allow some time for manual verification. Your theme will be delivered to your email shortly.</p>
         </div>
     </div>
 </div>
 
 <script>
-    // 👇 YAHAN NAYA LINK UPDATE KAR DIYA GAYA HAI
+    // Aapka Latest API Link
     const scriptUrl = "https://script.google.com/macros/s/AKfycbxF9R6-qExtpIfPrxEmFJZlHRV6fbyRTcgR1fBpf5B5jOS_mI7RG4nqKRJjTODFfP-s6g/exec";
     
     // Price Calculation
@@ -210,7 +212,6 @@ layout: default
         const price = encodeURIComponent(numericPrice);
         const utrValue = encodeURIComponent(utr);
 
-        // Encrypted link (file=encodedSecret) add kar diya gaya hai
         const createUrl = `${scriptUrl}?action=create&theme=${themeName}&price=${price}&utr=${utrValue}&file=${encodedSecret}`;
 
         fetch(createUrl).catch(e => console.log(e));
@@ -236,13 +237,13 @@ layout: default
                     if (data.status === "Success" || data.status === "Approved") {
                         clearInterval(checkInterval); // Check karna band karo
                         
-                        // Green Tick, Secure Download Button aur Contact Link
+                        // Green Tick (Text colors updated to variable)
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(46, 204, 113, 0.1)";
                         pendingDiv.style.borderColor = "#2ecc71";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #2ecc71;">✅ Payment Successful!</h3>
-                            <p style="color: #e0e0e0;">Your UTR <strong>${utrValue}</strong> has been verified.</p>
+                            <p style="color: var(--text-color);">Your UTR <strong>${utrValue}</strong> has been verified.</p>
                             <a href="${scriptUrl}?action=download&utr=${utrValue}" target="_blank" style="display: block; background: #2ecc71; color: white; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 15px;">📥 Download Theme Now</a>
                             <p style="margin-top: 15px; font-size: 13px; text-align: center;">
                                 <a href="/contact.html" style="color: #3498db; text-decoration: underline;">Need help? Contact Support</a>
@@ -251,13 +252,13 @@ layout: default
                     } else if (data.status === "Rejected") {
                         clearInterval(checkInterval); 
                         
-                        // Red Cross aur Contact Link
+                        // Red Cross (Text colors updated to variable)
                         const pendingDiv = document.getElementById("pending");
                         pendingDiv.style.background = "rgba(231, 76, 60, 0.1)";
                         pendingDiv.style.borderColor = "#e74c3c";
                         pendingDiv.innerHTML = `
                             <h3 style="margin-top: 0; color: #e74c3c;">❌ Payment Rejected</h3>
-                            <p style="color: #e0e0e0;">We could not verify your payment for UTR <strong>${utrValue}</strong>.</p>
+                            <p style="color: var(--text-color);">We could not verify your payment for UTR <strong>${utrValue}</strong>.</p>
                             <p style="margin-top: 15px; font-size: 13px; text-align: center;">
                                 <a href="/contact.html" style="color: #3498db; text-decoration: underline;">Contact Support</a>
                             </p>
