@@ -2,3 +2,7 @@ name: YoloTemplates
 description: Premium Blogger Themes
 markdown: kramdown
 permalink: /:title.html
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
