@@ -7,7 +7,8 @@ preview_link: "https://www.google.com/search?q=https://preview-link-here.com"
 download_link: "https://free-download-link.com](https://free-download-link.com"
 premium_download_link: "https://www.google.com/search?q=https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 free_price: "Free"
-premium_price: "Pro Edition"
+premium_price: "Rs 499.00"
+description: "Ye rha description"
 ---
 
 Do you want to give your website or blog a completely modern, sleek, and mobile-app-like premium look? If yes, then the **OneUI Blogger Template** is an exceptional choice for you. This template is specifically designed for content creators, tech bloggers, and publishers who want to provide their audience with a clean, fast, and distraction-free reading experience.
