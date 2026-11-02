@@ -2,7 +2,7 @@
 ## layout: post
 title: "OneUI Blogger Template"
 category: "Premium"
-image: "https://www.google.com/search?q=https://via.placeholder.com/800x400/1e1e1e/3498db%3Ftext%3DOneUI%2BBlogger%2BTemplate"
+image: "https://via.placeholder.com/800x400/1e1e1e/3498db%3Ftext%3DOneUI%2BBlogger%2BTemplate"
 preview_link: "https://www.google.com/search?q=https://preview-link-here.com"
 download_link: "https://free-download-link.com](https://free-download-link.com"
 premium_download_link: "https://www.google.com/search?q=https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
