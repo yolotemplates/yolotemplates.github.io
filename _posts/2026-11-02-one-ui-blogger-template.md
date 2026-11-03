@@ -15,6 +15,7 @@ rating: "4.8"
 documentation_url: "https://yolotemplates.github.io/docs/oneui-setup"
 last_updated: "2026-11-02"
 description: "Download OneUI Blogger Template - A fast, modern, and app-inspired responsive theme for Blogger. Available in free and pro editions with clean code and built-in dark mode."
+features: ["Lightning-Fast Speed", "Modern App-Like UI", "Fully Responsive", "AdSense Optimized", "Dark Mode"]
 ---
 
 Do you want to give your website or blog a completely modern, sleek, and mobile-app-like premium look? If yes, then the **OneUI Blogger Template** is an exceptional choice for you. This template is specifically designed for content creators, tech bloggers, and publishers who want to provide their audience with a clean, fast, and distraction-free reading experience.
