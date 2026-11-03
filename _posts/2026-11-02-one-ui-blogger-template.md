@@ -10,7 +10,7 @@ preview_link: "https://preview-link-here.com"
 download_link: "https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 premium_download_link: "https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 free_price: "Free"
-premium_price: '<span style="text-decoration: line-through; color: #888; font-size: 0.85em; margin-right: 6px;">Rs 1000</span> Rs 499'
+premium_price: '<span style="text-decoration: line-through; color: #e74c3c; font-size: 0.85em; "> Rs 1000</span>Rs 499'
 rating: "4.8"
 documentation_url: "https://yolotemplates.github.io/docs/oneui-setup"
 last_updated: "2026-11-02"
