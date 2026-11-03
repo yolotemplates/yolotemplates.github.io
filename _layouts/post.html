@@ -20,24 +20,28 @@ layout: default
             <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image">
         {% endif %}
 
-        <!-- 🔥 Image ke theek niche Preview & Share Bar -->
         <div class="post-action-bar">
             <a href="{{ page.preview_link }}" class="btn-preview-link" target="_blank">
                 <i class="fa-solid fa-eye"></i> Preview Link
             </a>
-            
-            <div class="share-container">
+
+        <div class="share-container">
                 <span class="share-label">Share on:</span>
                 <div class="share-icons">
                     <a href="https://api.whatsapp.com/send?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on Facebook"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on X"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this theme: {{ site.url }}{{ page.url }}" class="share-btn" title="Share More"><i class="fa-solid fa-share-nodes"></i></a>
+                    <a href="https://t.me/share/url?url={{ site.url }}{{ page.url }}&text={{ page.title | url_encode }}" target="_blank" class="share-btn" title="Share on Telegram"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" target="_blank" class="share-btn" title="Share on LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://pinterest.com/pin/create/button/?url={{ site.url }}{{ page.url }}&description={{ page.title | url_encode }}" target="_blank" class="share-btn" title="Share on Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+                    <a href="https://www.reddit.com/submit?url={{ site.url }}{{ page.url }}&title={{ page.title | url_encode }}" target="_blank" class="share-btn" title="Share on Reddit"><i class="fa-brands fa-reddit-alien"></i></a>
+                    <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this theme: {{ site.url }}{{ page.url }}" class="share-btn" title="Share via Email"><i class="fa-solid fa-envelope"></i></a>
                 </div>
             </div>
         </div>
 
         <div class="post-body">{{ content }}</div>
+
     </div>
 
     <!-- Right Side: Sidebar Cards -->
