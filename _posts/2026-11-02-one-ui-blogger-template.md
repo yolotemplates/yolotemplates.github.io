@@ -1,13 +1,19 @@
 ---
-## layout: post
 title: "OneUI Blogger Template"
 category: "Premium"
+tags: ["Dark Mode", "Responsive", "SEO Friendly", "Fast Loading", "Blogger Template"]
+author: "YoloTemplates"
+version: "v1.0.0"
+compatibility: "Blogger / XML"
 image: "https://via.placeholder.com/800x400/1e1e1e/2ecc71?text=OneUI+Pro+Template"
-preview_link: "https://www.google.com/search?q=https://preview-link-here.com"
-download_link: "https://free-download-link.com"
+preview_link: "https://preview-link-here.com"
+download_link: "https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 premium_download_link: "https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 free_price: "Free"
 premium_price: "Rs 499.00"
+rating: "4.8"
+documentation_url: "https://yolotemplates.github.io/docs/oneui-setup"
+last_updated: "2026-11-02"
 description: "Download OneUI Blogger Template - A fast, modern, and app-inspired responsive theme for Blogger. Available in free and pro editions with clean code and built-in dark mode."
 ---
 
