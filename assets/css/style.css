@@ -10,7 +10,8 @@
 /*  */
 .pricing-card { background: var(--card-bg); border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px var(--nav-shadow); border: 1px solid var(--border-color); transition: background 0.3s, border 0.3s; } 
 .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 18px; font-weight: bold; color: var(--logo-color); transition: color 0.3s; } 
-.price { color: var(--primary-color); font-size: 24px; } .pricing-features { list-style: none; margin-bottom: 25px; font-size: 14px; color: var(--text-color); line-height: 2.5; padding: 0; } 
+.price { color: var(--primary-color); font-size: 18px; } 
+.pricing-features { list-style: none; margin-bottom: 25px; font-size: 14px; color: var(--text-color); line-height: 2.5; padding: 0; } 
 .pricing-features li i.fa-check { color: #2ecc71; margin-right: 10px; font-size: 16px; } 
 .pricing-features li i.fa-times { color: #e74c3c; margin-right: 12px; margin-left: 2px; font-size: 16px; } 
 .btn-buy { display: block; width: 100%; text-align: center; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 16px; cursor: pointer; border: none; } 
