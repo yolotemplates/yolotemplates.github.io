@@ -35,7 +35,7 @@
 
 /* Ticket Cut Style for Real Price */ 
 .ticket-badge { display: inline-block; background: #ff4757; color: #fff; padding: 4px 12px; font-weight: bold; font-size: 0.9em; border-radius: 2px; position: relative; margin-left: 4px; } 
-.ticket-badge::before, .ticket-badge::after { content: ""; position: absolute; top: 0; bottom: 0; width: 4px; background: radial-gradient(circle, #1e1e1e 50%, transparent 50%); background-size: 4px 6px; } 
+.ticket-badge::before, .ticket-badge::after { content: ""; position: absolute; top: 0; bottom: 0; width: 4px; background: radial-gradient(circle, var(--card-bg) 50%, transparent 50%); background-size: 4px 6px; } 
 .ticket-badge::before { left: -2px; } 
 .ticket-badge::after { right: -2px; }
 
