@@ -2,10 +2,10 @@
 ## layout: post
 title: "OneUI Blogger Template"
 category: "Premium"
-image: "https://via.placeholder.com/800x400/1e1e1e/3498db%3Ftext%3DOneUI%2BBlogger%2BTemplate"
+image: "https://via.placeholder.com/800x400/1e1e1e/2ecc71?text=OneUI+Pro+Template"
 preview_link: "https://www.google.com/search?q=https://preview-link-here.com"
-download_link: "https://free-download-link.com](https://free-download-link.com"
-premium_download_link: "https://www.google.com/search?q=https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
+download_link: "https://free-download-link.com"
+premium_download_link: "https://yolotemplates.github.io/hidden-files/oneui-pro-theme.zip"
 free_price: "Free"
 premium_price: "Rs 499.00"
 description: "Download OneUI Blogger Template - A fast, modern, and app-inspired responsive theme for Blogger. Available in free and pro editions with clean code and built-in dark mode."
