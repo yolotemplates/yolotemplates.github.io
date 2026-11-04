@@ -82,3 +82,9 @@ If you want to launch a professional and fast blog without relying on heavy plug
 
 * **Free Version:** Ideal for beginners looking to start out with essential features.
 * **Pro Edition:** Perfect for advanced publishers seeking zero footer credits and full customization control.
+
+<div class="post-tags" style="margin-top: 20px;">
+    <strong>Tags: </strong>
+    <a href="/tags/dark-mode" style="background: #333; color: #fff; padding: 4px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; margin-right: 5px;">Dark Mode</a>
+    <a href="/tags/blogger-template" style="background: #333; color: #fff; padding: 4px 10px; border-radius: 4px; text-decoration: none; font-size: 12px; margin-right: 5px;">Blogger Template</a>
+</div>
