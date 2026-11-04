@@ -4,6 +4,14 @@ body.dark-mode .post-content th, body.dark-mode .post-content td { border: 1px s
 body.dark-mode .post-content th { background-color: rgba(255, 255, 255, 0.05); color: var(--logo-color); } 
 body.dark-mode .post-content tr:nth-child(even) { background-color: rgba(255, 255, 255, 0.02); }
 
+/* Prevent Content & Pricing Card Overlap */ 
+.single-post-wrapper { display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start; } 
+.post-main { flex: 2; min-width: 300px; } 
+.post-sidebar { flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 90px; } 
+.pricing-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; box-shadow: 0 10px 20px var(--nav-shadow); overflow: hidden; } 
+/* Mobile responsive layout */ 
+@media (max-width: 768px) { .single-post-wrapper { flex-direction: column; } .post-sidebar { position: static; width: 100%; } }
+
 .single-post-wrapper { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 20px; align-items: flex-start; } 
 .post-main { flex: 1 1 65%; background: var(--post-bg); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px var(--nav-shadow); color: var(--text-color); transition: background 0.3s, color 0.3s; } 
 .post-sidebar { flex: 1 1 30%; display: flex; flex-direction: column; gap: 20px; position: sticky; top: 90px; height: fit-content; } 
