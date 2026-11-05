@@ -1,0 +1,16 @@
+{
+  "name": "My Web Tool",
+  "short_name": "WebTool",
+  "description": "Quick access to my web utilities.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjD89i6a1egx38Yff8oTKIFcTwqmGMSXJUZHnOm1LQJ7ubPd-O3CpSW7edolDvxSqUYoJZ3suY_2gjEwvtVxeFzCbD8XH7wkx-8wM8X0gvZSvR-oTk-yikOokr1moJa5xw8H-b2f5MjU6Tl_aMeV3x9KwdCISghZLUaGxY2zqbstVQ3la-BZQsgvnHlzWzk/w180-h180-p-k-no-nu/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
