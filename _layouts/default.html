@@ -238,7 +238,48 @@
                 behavior: "smooth"
             });
         });
-        
+
+
+// 1. Register Service Worker (Required for PWA Install Prompt)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('SW registered'))
+          .catch(err => console.error('SW error', err));
+      });
+    }
+
+    // 2. Handle Custom Install Prompt (Vanilla JS)
+    let deferredPrompt;
+    const pwaPopup = document.getElementById('pwa-popup');
+    const installBtn = document.getElementById('pwa-install');
+    const cancelBtn = document.getElementById('pwa-cancel');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaPopup.classList.add('active'); // Show custom popup
+    });
+
+    installBtn.addEventListener('click', async () => {
+      pwaPopup.classList.remove('active');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response: ${outcome}`);
+        deferredPrompt = null;
+      }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+      pwaPopup.classList.remove('active');
+    });
+
+    window.addEventListener('appinstalled', () => {
+      pwaPopup.classList.remove('active');
+      deferredPrompt = null;
+      console.log('App installed successfully');
+    });
     </script>
 </body>
 </html>
