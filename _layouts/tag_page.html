@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<!-- Archive Page CSS (Pehle wali hi hai) -->
+<style>
+  .archive-container { max-width: 1200px; margin: 40px auto; padding: 0 20px; color: #ffffff; }
+  .tag-title { font-size: 26px; font-weight: 600; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #1a73e8; display: inline-block; text-transform: capitalize; }
+  .theme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+  .theme-card { background: #1e1e1e; border-radius: 12px; overflow: hidden; border: 1px solid #333; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .theme-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); border-color: #1a73e8; }
+  .theme-thumb { width: 100%; height: 180px; object-fit: cover; display: block; background: #2a2a2a; border-bottom: 1px solid #333; }
+  .card-content { padding: 20px; }
+  .theme-title { font-size: 18px; margin: 0 0 15px 0; }
+  .theme-title a { color: #ffffff; text-decoration: none; transition: color 0.2s; }
+  .theme-title a:hover { color: #1a73e8; }
+  .btn-preview { display: inline-block; padding: 8px 16px; background: transparent; color: #3ca2ff; border: 1px solid #3ca2ff; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 500; transition: all 0.3s; }
+  .btn-preview:hover { background: #3ca2ff; color: #121212; }
+</style>
+
+<div class="archive-container">
+  <h2 class="tag-title">{{ page.title }}</h2>
+  
+  <div class="theme-grid">
+    <!-- Ye loop page ke tag_name ke hisaab se posts layega -->
+    {% for post in site.tags[page.tag_name] %}
+      <div class="theme-card">
+        <a href="{{ post.url }}">
+          <img src="{{ post.image | default: 'https://via.placeholder.com/400x250/2a2a2a/ffffff?text=No+Image' }}" alt="{{ post.title }}" class="theme-thumb">
+        </a>
+        <div class="card-content">
+          <h3 class="theme-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <a href="{{ post.url }}" class="btn-preview">View Template</a>
+        </div>
+      </div>
+    {% else %}
+      <p>Is category me abhi koi templates nahi hain.</p>
+    {% endfor %}
+  </div>
+</div>
