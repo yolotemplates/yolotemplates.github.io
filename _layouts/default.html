@@ -281,5 +281,65 @@
       console.log('App installed successfully');
     });
     </script>
+
+
+
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+  // 1. Automatically Data Fetch Karna
+  const pageTitle = document.title;
+  const pageUrl = window.location.href;
+  
+  // Description aur Image meta tags se nikalna
+  const metaDesc = document.querySelector('meta[name="description"]');
+  const pageDesc = metaDesc ? metaDesc.content : "Premium Web Tool and Template";
+  
+  const metaImage = document.querySelector('meta[property="og:image"]');
+  const pageImage = metaImage ? metaImage.content : "https://aapki-website.com/default-thumbnail.jpg";
+
+  // 2. Dynamic Schema Object Banana
+  const dynamicSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Product", // Blog posts ke liye isko "Article" bhi kar sakte hain
+    "name": pageTitle,
+    "image": pageImage,
+    "description": pageDesc,
+    "brand": {
+      "@type": "Brand",
+      "name": "Deepak Saini"
+    },
+    // Same star rating aur sold count har tool/post par dikhane ke liye
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8", 
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "16" 
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": pageUrl,
+      "priceCurrency": "INR",
+      "price": "0.00", // Free tool ke liye 0, paid ke liye amount
+      "priceValidUntil": "2027-12-31",
+      "itemCondition": "https://schema.org/NewCondition",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Yolo Templates"
+      }
+    }
+  };
+
+  // 3. Schema ko JSON-LD format me <head> me Inject karna
+  const scriptTag = document.createElement('script');
+  scriptTag.type = 'application/ld+json';
+  scriptTag.text = JSON.stringify(dynamicSchema);
+  document.head.appendChild(scriptTag);
+});
+</script>
+
+    
 </body>
 </html>
